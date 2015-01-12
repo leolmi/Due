@@ -10,12 +10,22 @@ angular.module('dueAppApp')
     });
 
     $scope.addThing = function() {
-      if($scope.newThing === '') {
-        return;
-      }
-      $http.post('/api/things', { name: $scope.newThing });
-      $scope.newThing = '';
+      if(!$scope.newThing) return;
+
+      $http.post('/api/things', $scope.newThing);
+      initNewThing();
     };
+
+    var initNewThing = function() {
+      $scope.newThing = {
+        name: '',
+        info: '',
+        due_date: new Date(),
+        value: 0
+      };
+    };
+
+    initNewThing();
 
     $scope.deleteThing = function(thing) {
       $http.delete('/api/things/' + thing._id);
@@ -24,4 +34,8 @@ angular.module('dueAppApp')
     $scope.$on('$destroy', function () {
       socket.unsyncUpdates('thing');
     });
+
+    $scope.toggle = function() {
+      //TODO: toggle editor
+    };
   });
