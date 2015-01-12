@@ -1,5 +1,4 @@
 Due
 ===
 
-
-Elenco pagamenti
+Elenco pagamenti da fare, fatti, facendo, faresti, farebbi ...
