@@ -11,22 +11,17 @@ angular.module('dueAppApp')
 
     $scope.addThing = function() {
       if(!$scope.newThing) return;
-
-      $http.post('/api/things', $scope.newThing);
-      initNewThing();
+      if ($scope.addThing._id) {
+        $http.put('/api/things', $scope.newThing);
+      }
+      else {
+        $http.post('/api/things', $scope.newThing);
+      }
+      $scope.createNewThing();
     };
-
-    var initNewThing = function() {
-      $scope.newThing = {
-        name: '',
-        info: '',
-        due_date: new Date(),
-        value: 0
-      };
+    $scope.selectThing = function(thing) {
+      $scope.newThing = thing;
     };
-
-    initNewThing();
-
     $scope.deleteThing = function(thing) {
       $http.delete('/api/things/' + thing._id);
     };
@@ -34,7 +29,15 @@ angular.module('dueAppApp')
     $scope.$on('$destroy', function () {
       socket.unsyncUpdates('thing');
     });
-
+    $scope.createNewThing = function() {
+      $scope.newThing = {
+        name: '',
+        info: '',
+        due_date: new Date(),
+        value: 0
+      };
+    };
+    $scope.createNewThing();
     $scope.toggle = function() {
       //TODO: toggle editor
     };

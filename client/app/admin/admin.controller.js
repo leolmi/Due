@@ -14,4 +14,8 @@ angular.module('dueAppApp')
         }
       });
     };
+
+    $scope.isMe = function(user) {
+       return (user._id==Auth.getCurrentUser()._id);
+    };
   });
