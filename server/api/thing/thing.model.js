@@ -6,7 +6,8 @@ var mongoose = require('mongoose'),
 var ThingStateSchema = new Schema({
   type: String,
   desc: String,
-  date: Date
+  date: Date,
+  value: Number
 });
 
 var ThingSchema = new Schema({

@@ -1,4 +1,17 @@
-<a href="#" class="list-group-item" tooltip="{{thing.info}}" ng-class="{active:active}">
-  {{thing.name}}
-  <button type="button" class="close" ng-click="deleteThing(thing)">&times;</button>
-</a>
+<div class="list-group-item" data-ng-class="{{thing_style}}">
+  <strong>{{thing.name}}</strong>
+  <div class="thing-infos">
+    {{thing.info}}
+  </div>
+  <button type="button" class="close" data-ng-click="deleteThing(thing)">&times;</button>
+  <div class="thing thing-date">
+    <strong>{{getDateStr()}}</strong>
+  </div>
+  <div class="thing thing-value">
+    € {{getToPaidValue()}}<div ng-show="getPaidValue()>0" class="thing-value-paid">pagati: € <strong>{{getPaidValue()}}</strong></div>
+  </div>
+  <button class="btn btn-success thing-action" data-ng-hide="isPaid()">Paga</button>
+</div>
+<div class="thing-todue" data-ng-hide="isPaid()" data-ng-class="{over:isOverPaid()}" title="Giorni mancanti al pagamento.">
+  {{getDaysToDue()}}
+</div>

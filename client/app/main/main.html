@@ -1,8 +1,10 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 <header class="due-header">
 <div class="item-editor container">
-  <span class="glyphicon glyphicon-adjust" data-ng-click="toggle()"></span>
-  <div class="row">
+  <div class="editor-header centered aslink" data-ng-click="toggle()" data-ng-hide="editor_opened">
+    Clicca per <strong>aggiungere</strong> o <strong>modificare</strong> un elemento
+  </div>
+  <div class="row" data-ng-show="editor_opened">
     <div class="col-sm-2"></div>
     <div class="col-sm-3">
       <div class="form-group form-group-sm">
@@ -31,7 +33,7 @@
       </div>
     </div>
   </div>
-  <div class="row">
+  <div class="row" data-ng-show="editor_opened">
     <div class="col-sm-2"></div>
     <div class="col-sm-8">
       <div class="form-group form-group-sm">
@@ -39,7 +41,7 @@
       </div>
     </div>
   </div>
-  <div class="row">
+  <div class="row" data-ng-show="editor_opened">
     <div class="col-sm-2"></div>
     <div class="col-sm-8">
       <div class="form-group form-group-sm">
@@ -48,6 +50,7 @@
       <button type="button" class="btn btn-primary" ng-hide="newThing._id"  ng-click="addThing()">Aggiungi</button>
       <button type="button" class="btn btn-success" ng-show="newThing._id"  ng-click="addThing()">Modifica</button>
       <button type="button" class="btn btn-warning" ng-show="newThing._id" ng-click="createNewThing()">Nuovo</button>
+      <span class="glyphicon glyphicon-chevron-up aslink close-editor" data-ng-click="toggle()"></span>
     </div>
   </div>
 </div>
@@ -55,14 +58,23 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-2"></div>
-    <div class="col-sm-8">
+    <div class="col-sm-8 things-container">
       <div class="list-group" >
-        <due-item data-ng-repeat="thing in awesomeThings" data-ng-click="selectThing(thing)" data-ng-model="thing" active="newThing._id==thing._id"></due-item>
-          <!--<a href="#" class="list-group-item" tooltip="{{thing.info}}" ng-repeat="thing in awesomeThings" data-ng-click="selectThing(thing)" ng-class="{active:newThing._id==thing._id}">-->
-            <!--{{thing.name}}-->
-            <!--<button type="button" class="close" ng-click="deleteThing(thing)">&times;</button>-->
-          <!--</a>-->
+        <due-item data-ng-repeat="thing in awesomeThings | oldThings | orderBy:'due_date'" data-ng-click="selectThing(thing)" data-ng-model="thing" active="newThing._id==thing._id"></due-item>
       </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="thing-today">{{getToday()}}</div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8 things-container">
+        <due-item data-ng-repeat="thing in awesomeThings | futureThings | orderBy:'due_date'" data-ng-click="selectThing(thing)" data-ng-model="thing" active="newThing._id==thing._id"></due-item>
     </div>
   </div>
 </div>
