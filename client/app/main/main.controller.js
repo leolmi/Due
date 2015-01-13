@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('dueAppApp')
-  .controller('MainCtrl', function ($scope, $http, socket, Utilities) {
+  .controller('MainCtrl', function ($scope, $http, $timeout, $window, socket, Utilities) {
     $scope.awesomeThings = [];
 
     $http.get('/api/things').success(function(awesomeThings) {
@@ -18,7 +18,7 @@ angular.module('dueAppApp')
       else {
         $http.post('/api/things', $scope.newThing);
       }
-      $scope.createNewThing();
+      $scope.createNewThing(true);
     };
     var resolveDate = function() {
       $scope.newThing.due_date = new Date($scope.newThing.date_year+'-'+$scope.newThing.date_month+'-'+$scope.newThing.date_day);
@@ -31,6 +31,7 @@ angular.module('dueAppApp')
       t.date_day = d.getDate();
     };
     $scope.selectThing = function(thing) {
+      if (!$scope.editor_opened) return;
       loadDate(thing);
       $scope.newThing = thing;
     };
@@ -41,15 +42,16 @@ angular.module('dueAppApp')
     $scope.$on('$destroy', function () {
       socket.unsyncUpdates('thing');
     });
-    $scope.createNewThing = function() {
+    $scope.createNewThing = function(focus) {
       var t = {
         name: '',
         info: '',
         due_date: new Date(),
-        value: 0
+        value: undefined
       };
       loadDate(t);
       $scope.newThing = t;
+      if (focus) selectFirstControl();
     };
     $scope.createNewThing();
 
@@ -57,6 +59,23 @@ angular.module('dueAppApp')
 
     $scope.toggle = function() {
       $scope.editor_opened = !$scope.editor_opened;
+      if ($scope.editor_opened) selectFirstControl();
+      //document.querySelector('#first-control').focus();
+        //angular.element("#first-control").focus();
+    };
+    var selectFirstControl = function() {
+      $timeout(function() {
+        $("#first-control").focus();
+      });
+    };
+
+    //$scope.content_style = $scope.editor_opened ? { padding-top : 120px } : { padding-top : 120px };
+
+    $scope.getContentStyle = function() {
+      if (!$scope.editor_opened)
+        return { 'padding-top' : '120px' };
+
+      return { 'padding-top' : '300px' };
     };
 
     $scope.getToday = function() {

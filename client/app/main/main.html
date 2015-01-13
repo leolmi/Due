@@ -49,13 +49,13 @@
       </div>
       <button type="button" class="btn btn-primary" ng-hide="newThing._id"  ng-click="addThing()">Aggiungi</button>
       <button type="button" class="btn btn-success" ng-show="newThing._id"  ng-click="addThing()">Modifica</button>
-      <button type="button" class="btn btn-warning" ng-show="newThing._id" ng-click="createNewThing()">Nuovo</button>
+      <button type="button" class="btn btn-warning" ng-show="newThing._id" ng-click="createNewThing(true)">Nuovo</button>
       <span class="glyphicon glyphicon-chevron-up aslink close-editor" data-ng-click="toggle()"></span>
     </div>
   </div>
 </div>
 </header>
-<div class="container">
+<div class="container" ng-style="getContentStyle()">
   <div class="row">
     <div class="col-sm-2"></div>
     <div class="col-sm-8 things-container">

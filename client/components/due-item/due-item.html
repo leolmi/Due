@@ -1,4 +1,4 @@
-<div class="list-group-item" data-ng-class="{{thing_style}}">
+<div class="list-group-item" data-ng-class="{{thing_style}}" ng-style="getStyle()">
   <strong>{{thing.name}}</strong>
   <div class="thing-infos">
     {{thing.info}}
@@ -8,7 +8,13 @@
     <strong>{{getDateStr()}}</strong>
   </div>
   <div class="thing thing-value">
-    € {{getToPaidValue()}}<div ng-show="getPaidValue()>0" class="thing-value-paid">pagati: € <strong>{{getPaidValue()}}</strong></div>
+    <div data-ng-hide="isPaid()">
+      € {{getToPaidValue()}}
+      <div ng-show="getPaidValue()>0" class="thing-value-paid">
+        pagati: € <strong>{{getPaidValue()}}</strong>
+      </div>
+    </div>
+    <div data-ng-show="isPaid()">€ {{getPaidValue()}}</div>
   </div>
   <button class="btn btn-success thing-action" data-ng-hide="isPaid()">Paga</button>
 </div>

@@ -29,7 +29,7 @@ angular.module('dueAppApp')
   .directive('dueItem', ['Utilities', function (Utilities) {
       return {
           restrict: 'E',
-          templateUrl: 'components/due-item/due-item.html', //url del template html
+          templateUrl: 'components/due-item/due-item.html',
           scope: {thing: '=ngModel', active:'='},
           link: function (scope) {
             var now = (new Date()).getTime();
@@ -85,8 +85,12 @@ angular.module('dueAppApp')
             // pagato
             else if (d<now) s= paid ? '\'thing-success\':true' : '\'thing-danger\':true';
 
-            if (scope.active) s = Utilities.strAppend(style, '\'thing-active\':true');
+            //if (scope.active) s = Utilities.strAppend(style, '\'thing-active\':true');
             scope.thing_style = '{'+s+'}';
+
+            scope.getStyle = function() {
+              return (scope.active && scope.$parent.editor_opened) ? { 'background-color' : 'cadetblue' } : undefined;
+            };
 
           }
       }
