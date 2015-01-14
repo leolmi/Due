@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('dueAppApp')
-  .controller('NavbarCtrl', function ($scope, $location, Auth) {
+  .controller('NavbarCtrl', function ($scope, $rootScope, $location, Auth) {
     $scope.menu = [{
       'title': 'Scadenze',
       'link': '/'
@@ -11,6 +11,10 @@ angular.module('dueAppApp')
     $scope.isLoggedIn = Auth.isLoggedIn;
     $scope.isAdmin = Auth.isAdmin;
     $scope.getCurrentUser = Auth.getCurrentUser;
+
+    $scope.search = function(text) {
+        $rootScope.searchtext = text;
+    };
 
     $scope.logout = function() {
       Auth.logout();

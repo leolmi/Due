@@ -26,6 +26,7 @@ angular.module('dueAppApp')
     var _loading = false;
     var _getup = false;
     var _items = { first:undefined, last:undefined };
+
     $scope.things = [];
     //$scope.things_config = {up:10, down:10};
 
