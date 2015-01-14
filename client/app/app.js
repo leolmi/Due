@@ -45,7 +45,7 @@ angular.module('dueAppApp', [
   })
 
   .run(function ($rootScope, $location, Auth) {
-    $rootScope.searchtext = 'uno';
+    $rootScope.searchtext = '';
     // Redirect to login if route requires auth and you're not logged in
     $rootScope.$on('$routeChangeStart', function (event, next) {
       Auth.isLoggedInAsync(function(loggedIn) {

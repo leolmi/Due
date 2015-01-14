@@ -12,6 +12,10 @@ angular.module('dueAppApp')
     $scope.isAdmin = Auth.isAdmin;
     $scope.getCurrentUser = Auth.getCurrentUser;
 
+    $scope.onDue = function() {
+      return ($location.path() === '/');
+    };
+
     $scope.search = function(text) {
         $rootScope.searchtext = text;
     };
