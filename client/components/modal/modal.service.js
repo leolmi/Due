@@ -50,16 +50,16 @@ angular.module('dueAppApp')
               modal: {
                 dismissable: true,
                 title: 'Confirm Delete',
-                html: '<p>Are you sure you want to delete <strong>' + name + '</strong> ?</p>',
+                html: '<p>Sicuro di voler eliminare <strong>' + name + '</strong> ?</p>',
                 buttons: [{
                   classes: 'btn-danger',
-                  text: 'Delete',
+                  text: 'Elimina',
                   click: function(e) {
                     deleteModal.close(e);
                   }
                 }, {
                   classes: 'btn-default',
-                  text: 'Cancel',
+                  text: 'Annulla',
                   click: function(e) {
                     deleteModal.dismiss(e);
                   }
