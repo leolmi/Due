@@ -7,6 +7,7 @@ angular.module('dueAppApp')
     $scope.users = User.query();
 
     $scope.delete = function(user) {
+      if (!confirm('Eliminare l\'utente: '+user.name+'?')) return;
       User.remove({ id: user._id });
       angular.forEach($scope.users, function(u, i) {
         if (u === user) {
