@@ -85,6 +85,78 @@ Thing.find({}).remove(function() {
     info : 'Easily deploy your app to Heroku or Openshift with the heroku and openshift subgenerators',
     due_date: new Date('2015-3-4'),
     value: 350.00
+  },{
+    owner: '54b3e04cde6279a8211b42fd',
+    name : 'Uno (next)',
+    info : '',
+    due_date: new Date('2015-1-20'),
+    value: 6.87
+  },{
+    owner: '54b3e04cde6279a8211b42fd',
+    name : 'Due (next)',
+    info : '',
+    due_date: new Date('2015-1-21'),
+    value: 7.87
+  },{
+    owner: '54b3e04cde6279a8211b42fd',
+    name : 'Tre (next)',
+    info : '',
+    due_date: new Date('2015-1-22'),
+    value: 8.87
+  },{
+    owner: '54b3e04cde6279a8211b42fd',
+    name : 'Quattro (next)',
+    info : '',
+    due_date: new Date('2015-2-10'),
+    value: 9.87
+  },{
+    owner: '54b3e04cde6279a8211b42fd',
+    name : 'Cinque (next)',
+    info : '',
+    due_date: new Date('2015-2-11'),
+    value: 10.87
+  },{
+    owner: '54b3e04cde6279a8211b42fd',
+    name : 'Sei (next)',
+    info : '',
+    due_date: new Date('2015-2-12'),
+    value: 11.87
+  },{
+    owner: '54b3e04cde6279a8211b42fd',
+    name : 'sette (next)',
+    info : '',
+    due_date: new Date('2015-3-11'),
+    value: 12.87
+  },{
+    owner: '54b3e04cde6279a8211b42fd',
+    name : 'Otto (next)',
+    info : '',
+    due_date: new Date('2015-3-12'),
+    value: 13.87
+  },{
+    owner: '54b3e04cde6279a8211b42fd',
+    name : 'Nove (next)',
+    info : '',
+    due_date: new Date('2015-3-13'),
+    value: 14.87
+  },{
+    owner: '54b3e04cde6279a8211b42fd',
+    name : 'Dieci (next)',
+    info : '',
+    due_date: new Date('2015-4-11'),
+    value: 15.87
+  },{
+    owner: '54b3e04cde6279a8211b42fd',
+    name : 'Undici (next)',
+    info : '',
+    due_date: new Date('2015-4-12'),
+    value: 16.87
+  },{
+    owner: '54b3e04cde6279a8211b42fd',
+    name : 'Dodici (next)',
+    info : '',
+    due_date: new Date('2015-4-13'),
+    value: 17.87
   }, function() {
     console.log('finished populating things');
   });

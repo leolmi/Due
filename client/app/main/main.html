@@ -1,83 +1,86 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
+
 <header class="due-header">
-<div class="item-editor container">
-  <div class="editor-header centered aslink" data-ng-click="toggle()" data-ng-hide="editor_opened">
-    Clicca per <strong>aggiungere</strong> o <strong>modificare</strong> un elemento
-  </div>
-  <div class="row" data-ng-show="editor_opened">
-    <div class="col-sm-2"></div>
-    <div class="col-sm-3">
-      <div class="form-group form-group-sm">
-        <div class="input-group">
-          <div class="input-group-addon">€</div>
-          <input type="text" class="form-control" id="first-control" placeholder="importo" data-ng-model="newThing.value">
+  <div class="item-editor container">
+    <!--<pre>{{debug_value}}</pre>-->
+    <div class="editor-header centered aslink" data-ng-click="toggle()" data-ng-hide="editor_opened">
+      Clicca per <strong>aggiungere</strong> o <strong>modificare</strong> un elemento
+    </div>
+    <div class="row" data-ng-show="editor_opened">
+      <div class="col-sm-2"></div>
+      <div class="col-sm-3">
+        <div class="form-group form-group-sm">
+          <div class="input-group">
+            <div class="input-group-addon">€</div>
+            <input type="text" class="form-control" id="first-control" placeholder="importo" data-ng-model="newThing.value">
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-5 inline-imputs">
+        <label>Scadenza:</label>
+        <div class="form-group form-group-sm">
+          <div class="input-group">
+            <input type="text" size="2" maxlength="2" class="form-control" placeholder="gg" data-ng-model="newThing.date_day">
+          </div>
+        </div>
+        <div class="form-group form-group-sm">
+          <div class="input-group">
+            <input type="text" size="2" maxlength="2" class="form-control" placeholder="MM" data-ng-model="newThing.date_month">
+          </div>
+        </div>
+        <div class="form-group form-group-sm">
+          <div class="input-group">
+            <input type="text" size="5" maxlength="4" class="form-control" placeholder="yy" data-ng-model="newThing.date_year">
+          </div>
         </div>
       </div>
     </div>
-    <div class="col-sm-5 inline-imputs">
-      <label>Scadenza:</label>
-      <div class="form-group form-group-sm">
-        <div class="input-group">
-          <input type="text" size="2" maxlength="2" class="form-control" placeholder="gg" data-ng-model="newThing.date_day">
-        </div>
-      </div>
-      <div class="form-group form-group-sm">
-        <div class="input-group">
-          <input type="text" size="2" maxlength="2" class="form-control" placeholder="MM" data-ng-model="newThing.date_month">
-        </div>
-      </div>
-      <div class="form-group form-group-sm">
-        <div class="input-group">
-          <input type="text" size="5" maxlength="4" class="form-control" placeholder="yy" data-ng-model="newThing.date_year">
+    <div class="row" data-ng-show="editor_opened">
+      <div class="col-sm-2"></div>
+      <div class="col-sm-8">
+        <div class="form-group form-group-sm">
+          <input type="text" class="form-control" placeholder="nome" data-ng-model="newThing.name">
         </div>
       </div>
     </div>
-  </div>
-  <div class="row" data-ng-show="editor_opened">
-    <div class="col-sm-2"></div>
-    <div class="col-sm-8">
-      <div class="form-group form-group-sm">
-        <input type="text" class="form-control" placeholder="nome" data-ng-model="newThing.name">
+    <div class="row" data-ng-show="editor_opened">
+      <div class="col-sm-2"></div>
+      <div class="col-sm-8">
+        <div class="form-group form-group-sm">
+          <textarea class="form-control textarea-vertical" rows="1" data-ng-model="newThing.info" placeholder="note"></textarea>
+        </div>
+        <button type="button" class="btn btn-primary" ng-hide="newThing._id"  ng-click="addThing()">Aggiungi</button>
+        <button type="button" class="btn btn-success" ng-show="newThing._id"  ng-click="addThing()">Modifica</button>
+        <button type="button" class="btn btn-warning" ng-show="newThing._id" ng-click="createNewThing(true)">Nuovo</button>
+        <span class="glyphicon glyphicon-chevron-up aslink close-editor" data-ng-click="toggle()"></span>
       </div>
     </div>
   </div>
-  <div class="row" data-ng-show="editor_opened">
-    <div class="col-sm-2"></div>
-    <div class="col-sm-8">
-      <div class="form-group form-group-sm">
-        <textarea class="form-control textarea-vertical" rows="1" data-ng-model="newThing.info" placeholder="note"></textarea>
-      </div>
-      <button type="button" class="btn btn-primary" ng-hide="newThing._id"  ng-click="addThing()">Aggiungi</button>
-      <button type="button" class="btn btn-success" ng-show="newThing._id"  ng-click="addThing()">Modifica</button>
-      <button type="button" class="btn btn-warning" ng-show="newThing._id" ng-click="createNewThing(true)">Nuovo</button>
-      <span class="glyphicon glyphicon-chevron-up aslink close-editor" data-ng-click="toggle()"></span>
-    </div>
-  </div>
-</div>
 </header>
-<div class="container" ng-style="getContentStyle()">
+
+<div class="container" ng-style="getContentStyle()" infinite-scroll="loadMore(false)" infinite-scroll-up="loadMore(true)">
   <div class="row">
     <div class="col-sm-2"></div>
     <div class="col-sm-8 things-container">
       <div class="list-group" >
-        <due-item data-ng-repeat="thing in awesomeThings | oldThings | orderBy:'due_date'" data-ng-click="selectThing(thing)" data-ng-model="thing" active="newThing._id==thing._id"></due-item>
+        <due-item data-ng-repeat="thing in things | oldThings | orderBy:'due_date'" data-ng-click="selectThing(thing)" data-ng-model="thing" active="newThing._id==thing._id"></due-item>
       </div>
     </div>
   </div>
-
   <div class="row">
     <div class="col-sm-12">
       <div class="thing-today">{{getToday()}}</div>
+      <div class="thing-today-bg"></div>
     </div>
   </div>
-
   <div class="row">
     <div class="col-sm-2"></div>
     <div class="col-sm-8 things-container">
-        <due-item data-ng-repeat="thing in awesomeThings | futureThings | orderBy:'due_date'" data-ng-click="selectThing(thing)" data-ng-model="thing" active="newThing._id==thing._id"></due-item>
+        <due-item data-ng-repeat="thing in things | futureThings | orderBy:'due_date'" data-ng-click="selectThing(thing)" data-ng-model="thing" active="newThing._id==thing._id"></due-item>
     </div>
   </div>
 </div>
+
 <footer class="footer">
   <div class="container">
       <p>Little Poor v{{getVersion()}} | <a href="https://twitter.com/@GnaGniGno">NewT</a></p>

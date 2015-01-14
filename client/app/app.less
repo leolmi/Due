@@ -3,6 +3,10 @@
 
 @icon-font-path: '/bower_components/bootstrap/fonts/';
 @fa-font-path: '/bower_components/font-awesome/fonts';
+@due-header-color: dimgray;
+@due-header-hovercolor: darkorange;
+@due-header-backcolor: wheat; // #f8f8f8;
+@due-header-bordercolor: #e7e7e7;
 
 /**
  * App-wide Styles
@@ -15,8 +19,22 @@
     padding: 0.2em 0;
 }
 
+.navbar-default {
+  background-color: @due-header-backcolor;
+  border-color: @due-header-bordercolor;
+}
 .navbar-default .navbar-brand {
   padding-top: 10px;
+}
+
+.navbar-default .navbar-text {
+  color: @due-header-color;
+}
+.navbar-default .navbar-nav > li > a {
+  color: @due-header-color;
+}
+.navbar-default .navbar-nav > li > a:hover {
+  color: @due-header-hovercolor;
 }
 
 .centered {
@@ -28,7 +46,7 @@
 
 .due-content {
   position: relative;
-  padding-top: 120px;
+  padding-top: 50px;
 }
 
 // injector
