@@ -1,6 +1,6 @@
-<div class="editor-header centered aslink" data-ng-click="toggle()" data-ng-hide="eopened">
-  Clicca per <strong>aggiungere</strong> o <strong>modificare</strong> un elemento
-</div>
+<!--<div class="editor-header centered aslink" data-ng-click="toggle()" data-ng-hide="eopened">-->
+  <!--Clicca per <strong>aggiungere</strong> o <strong>modificare</strong> un elemento-->
+<!--</div>-->
 <!--Valore e data-->
 <div class="row" data-ng-show="eopened">
   <div class="col-sm-2"></div>
@@ -40,7 +40,7 @@
     <button type="button" class="btn btn-primary" ng-hide="thing._id"  ng-click="addThing()">Aggiungi</button>
     <button type="button" class="btn btn-success" ng-show="thing._id"  ng-click="addThing()">Modifica</button>
     <button type="button" class="btn btn-warning" ng-show="thing._id" ng-click="createNewThing(true)">Nuovo</button>
-    <span class="glyphicon glyphicon-chevron-up aslink close-editor" data-ng-click="toggle()"></span>
+    <span class="glyphicon glyphicon-off aslink close-editor" data-ng-click="toggle()"></span>
   </div>
 </div>
 <!--Pagamenti-->

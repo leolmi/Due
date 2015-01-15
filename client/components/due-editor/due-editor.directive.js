@@ -10,26 +10,26 @@ angular.module('dueAppApp')
       templateUrl: 'components/due-editor/due-editor.html',
       scope: {thing: '=ngModel', eopened:'='},
       link: function (scope, elm, attr) {
-        var selectFirstControl = function() {
-          $timeout(function() {
-            $("#first-control").focus();
-          });
-        };
+        //var selectFirstControl = function() {
+        //  $timeout(function() {
+        //    $("#first-control").focus();
+        //  });
+        //};
 
-        scope.createNewThing = function(focus) {
-          scope.thing = {
-            name: '',
-            info: '',
-            due_date: (new Date()).getTime(),
-            value: undefined
-          };
-          if (focus) selectFirstControl();
-        };
-        scope.createNewThing();
+        //scope.createNewThing = function(focus) {
+        //  scope.thing = {
+        //    name: '',
+        //    info: '',
+        //    due_date: (new Date()).getTime(),
+        //    value: undefined
+        //  };
+        //  if (focus) selectFirstControl();
+        //};
+        //scope.createNewThing();
 
         scope.toggle = function() {
           scope.eopened = !scope.eopened;
-          if (scope.eopened) scope.createNewThing(true);
+          if (scope.eopened) scope.$parent.createNewThing(true);
         };
 
         scope.openDate = function($event) {
@@ -46,7 +46,7 @@ angular.module('dueAppApp')
           else {
             $http.post('/api/things', scope.thing);
           }
-          scope.createNewThing(true);
+          scope.$parent.createNewThing(true);
         };
 
         scope.deleteState = function(state){

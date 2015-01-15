@@ -8,12 +8,14 @@
         <span class="icon-bar"></span>
       </button>
       <a href="/" class="navbar-brand"><img src="assets/images/pig-32.png"></a>
+      <a href="#" class="navbar-brand editor-toggle" ng-hide="editor_opened || !isActive('/')"><span class="glyphicon glyphicon-pencil" ng-click="toggleEditor()"></span></a>
     </div>
     <div collapse="isCollapsed" class="navbar-collapse collapse" id="navbar-main">
       <ul class="nav navbar-nav">
         <li ng-repeat="item in menu" ng-class="{active: isActive(item.link)}" ng-show="isVisible(item)">
             <a ng-href="{{item.link}}" class="aslink" ng-click="clickOnItem(item)">{{item.title}}</a>
         </li>
+        <li ng-show="isLoggedIn() && isActive('/')" ng-class="{}"><a href="#" ng-click="toggleEditor()"><span class="glyphicon"></span></a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li ng-show="isLoggedIn()" ng-class="{active: isActive('/settings')}"><a href="/settings">{{ getCurrentUser().name }}</a></li>

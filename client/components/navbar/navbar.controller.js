@@ -17,11 +17,6 @@ angular.module('dueAppApp')
         'link': '/'
       },
       {
-        'title': 'Test modal',
-        'link':'#',
-        'action': $scope.openModal
-      },
-      {
         'title': 'Utenti',
         'link': '/admin',
         'visible': Auth.isAdmin
@@ -61,4 +56,6 @@ angular.module('dueAppApp')
     $scope.isActive = function(route) {
       return route === $location.path();
     };
+
+    $scope.toggleEditor = $scope.$parent.toggleEditor;
   });

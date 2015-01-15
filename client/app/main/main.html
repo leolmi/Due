@@ -1,7 +1,7 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
 <header class="due-header">
-  <div class="item-editor container">
+  <div class="item-editor container" ng-show="editor_opened">
     <due-editor ng-model="selectedThing" eopened="editor_opened"></due-editor>
   </div>
 </header>
@@ -10,9 +10,10 @@
   <div class="row">
     <div class="col-sm-2"></div>
     <div class="col-sm-8 things-container">
-      <div class="list-group" >
+      <div class="load-more" ng-click="loadMore(true)">...</div>
+      <!--<div class="list-group" >-->
         <due-item data-ng-repeat="thing in things | oldThings | filter:searchtext | orderBy:'due_date'" data-ng-click="selectThing(thing)" data-ng-model="thing" active="selectedThing._id==thing._id"></due-item>
-      </div>
+      <!--</div>-->
     </div>
   </div>
   <div class="row">
@@ -24,7 +25,8 @@
   <div class="row">
     <div class="col-sm-2"></div>
     <div class="col-sm-8 things-container">
-        <due-item data-ng-repeat="thing in things | futureThings | filter:searchtext | orderBy:'due_date'" data-ng-click="selectThing(thing)" data-ng-model="thing" active="selectedThing._id==thing._id"></due-item>
+      <due-item data-ng-repeat="thing in things | futureThings | filter:searchtext | orderBy:'due_date'" data-ng-click="selectThing(thing)" data-ng-model="thing" active="selectedThing._id==thing._id"></due-item>
+      <div class="load-more" ng-click="loadMore(false)">...</div>
     </div>
   </div>
 </div>

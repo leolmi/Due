@@ -77,8 +77,8 @@ angular.module('dueAppApp')
     };
 
     var refreshContentStyle = function() {
-      var h = $('.item-editor').outerHeight() + $('.navbar').outerHeight() + 20;
-      if (h<130) h=130;
+      var h = $('.item-editor').outerHeight() + $('.navbar').outerHeight();
+      if (h<71) h=51;
       $scope.content_style = {'padding-top': h + 'px'};
     };
 
@@ -87,6 +87,33 @@ angular.module('dueAppApp')
         refreshContentStyle();
       });
     });
+
+    $scope.selectFirstControl = function() {
+      $timeout(function() {
+        $("#first-control").focus();
+      });
+    };
+
+    $scope.createNewThing = function(focus) {
+      $scope.selectedThing = {
+        name: '',
+        info: '',
+        due_date: (new Date()).getTime(),
+        value: undefined
+      };
+      if (focus) $scope.selectFirstControl();
+    };
+
+    $scope.toggleEditor = function() {
+      $scope.editor_opened=!$scope.editor_opened;
+      if ($scope.editor_opened)
+        $scope.createNewThing(true);
+    };
+
+
+    $scope.createNewThing();
+
+
 
     refreshContentStyle();
 
