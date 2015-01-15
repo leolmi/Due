@@ -1,0 +1,44 @@
+<!--<div class="item-editor container">-->
+  <div class="editor-header centered aslink" data-ng-click="toggle()" data-ng-hide="eopened">
+    Clicca per <strong>aggiungere</strong> o <strong>modificare</strong> un elemento
+  </div>
+  <div class="row" data-ng-show="eopened">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-3">
+      <div class="form-group form-group-sm">
+        <div class="input-group">
+          <div class="input-group-addon">€</div>
+          <input type="text" class="form-control" id="first-control" placeholder="importo" data-ng-model="thing.value">
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-5">
+      <p class="input-group">
+        <input type="text" class="form-control" datepicker-popup="{{'dd/MM/yyyy'}}" ng-model="thing.due_date" is-open="opened" ng-required="true" close-text="Chiudi" />
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="openDate($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+      </p>
+    </div>
+  </div>
+  <div class="row" data-ng-show="eopened">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8">
+      <div class="form-group form-group-sm">
+        <input type="text" class="form-control" placeholder="nome" data-ng-model="thing.name">
+      </div>
+    </div>
+  </div>
+  <div class="row" data-ng-show="eopened">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8">
+      <div class="form-group form-group-sm">
+        <textarea class="form-control textarea-vertical" rows="1" data-ng-model="thing.info" placeholder="note"></textarea>
+      </div>
+      <button type="button" class="btn btn-primary" ng-hide="thing._id"  ng-click="addThing()">Aggiungi</button>
+      <button type="button" class="btn btn-success" ng-show="thing._id"  ng-click="addThing()">Modifica</button>
+      <button type="button" class="btn btn-warning" ng-show="thing._id" ng-click="createNewThing(true)">Nuovo</button>
+      <span class="glyphicon glyphicon-chevron-up aslink close-editor" data-ng-click="toggle()"></span>
+    </div>
+  </div>
+<!--</div>-->

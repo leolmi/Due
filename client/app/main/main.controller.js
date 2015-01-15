@@ -27,6 +27,7 @@ angular.module('dueAppApp')
     var _getup = false;
     var _items = { first:undefined, last:undefined };
 
+    $scope.editor_opened = false;
     $scope.things = [];
 
     var loadThings = function() {
@@ -57,30 +58,11 @@ angular.module('dueAppApp')
       });
     };
 
-
     loadThings();
-
-    $scope.addThing = function() {
-      if(!$scope.newThing) return;
-      if ($scope.newThing._id) {
-        $http.put('/api/things/'+$scope.newThing._id, $scope.newThing);
-      }
-      else {
-        $http.post('/api/things', $scope.newThing);
-      }
-      $scope.createNewThing(true);
-    };
-
-    $scope.openDate = function($event) {
-      $event.preventDefault();
-      $event.stopPropagation();
-      $scope.opened = true;
-    };
-
 
     $scope.selectThing = function(thing) {
       if (!$scope.editor_opened) return;
-      $scope.newThing = thing;
+      $scope.selectedThing = thing;
     };
     $scope.deleteThing = function(thing) {
       $http.delete('/api/things/' + thing._id);
@@ -89,38 +71,13 @@ angular.module('dueAppApp')
     $scope.$on('$destroy', function () {
       socket.unsyncUpdates('thing');
     });
-    $scope.createNewThing = function(focus) {
-      $scope.newThing = {
-        name: '',
-        info: '',
-        due_date: (new Date()).getTime(),
-        value: undefined
-      };
-      if (focus) selectFirstControl();
-    };
-    $scope.createNewThing();
-
-    $scope.editor_opened = false;
-
-    $scope.toggle = function() {
-      $scope.editor_opened = !$scope.editor_opened;
-      if ($scope.editor_opened) $scope.createNewThing(true);
-    };
-
-    var selectFirstControl = function() {
-      $timeout(function() {
-        $("#first-control").focus();
-      });
-    };
 
     $scope.getVersion = function() {
       return Utilities.getVersion();
     };
 
     $scope.getContentStyle = function() {
-      if (!$scope.editor_opened)
-        return { 'padding-top' : '120px' };
-      var h = $('.due-header').height()+$('.navbar').height()+10;
+      var h = $('.item-editor').outerHeight()+$('.navbar').outerHeight()+20;
       return { 'padding-top' : h+'px' };
     };
 

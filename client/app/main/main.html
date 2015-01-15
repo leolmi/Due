@@ -2,48 +2,7 @@
 
 <header class="due-header">
   <div class="item-editor container">
-    <div class="editor-header centered aslink" data-ng-click="toggle()" data-ng-hide="editor_opened">
-      Clicca per <strong>aggiungere</strong> o <strong>modificare</strong> un elemento
-    </div>
-    <div class="row" data-ng-show="editor_opened">
-      <div class="col-sm-2"></div>
-      <div class="col-sm-3">
-        <div class="form-group form-group-sm">
-          <div class="input-group">
-            <div class="input-group-addon">€</div>
-            <input type="text" class="form-control" id="first-control" placeholder="importo" data-ng-model="newThing.value">
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-5">
-        <p class="input-group">
-          <input type="text" class="form-control" datepicker-popup="{{'dd/MM/yyyy'}}" ng-model="newThing.due_date" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="Chiudi" />
-          <span class="input-group-btn">
-            <button type="button" class="btn btn-default" ng-click="openDate($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-          </span>
-        </p>
-      </div>
-    </div>
-    <div class="row" data-ng-show="editor_opened">
-      <div class="col-sm-2"></div>
-      <div class="col-sm-8">
-        <div class="form-group form-group-sm">
-          <input type="text" class="form-control" placeholder="nome" data-ng-model="newThing.name">
-        </div>
-      </div>
-    </div>
-    <div class="row" data-ng-show="editor_opened">
-      <div class="col-sm-2"></div>
-      <div class="col-sm-8">
-        <div class="form-group form-group-sm">
-          <textarea class="form-control textarea-vertical" rows="1" data-ng-model="newThing.info" placeholder="note"></textarea>
-        </div>
-        <button type="button" class="btn btn-primary" ng-hide="newThing._id"  ng-click="addThing()">Aggiungi</button>
-        <button type="button" class="btn btn-success" ng-show="newThing._id"  ng-click="addThing()">Modifica</button>
-        <button type="button" class="btn btn-warning" ng-show="newThing._id" ng-click="createNewThing(true)">Nuovo</button>
-        <span class="glyphicon glyphicon-chevron-up aslink close-editor" data-ng-click="toggle()"></span>
-      </div>
-    </div>
+    <due-editor ng-model="selectedThing" eopened="editor_opened"></due-editor>
   </div>
 </header>
 
@@ -52,7 +11,7 @@
     <div class="col-sm-2"></div>
     <div class="col-sm-8 things-container">
       <div class="list-group" >
-        <due-item data-ng-repeat="thing in things | oldThings | filter:searchtext | orderBy:'due_date'" data-ng-click="selectThing(thing)" data-ng-model="thing" active="newThing._id==thing._id"></due-item>
+        <due-item data-ng-repeat="thing in things | oldThings | filter:searchtext | orderBy:'due_date'" data-ng-click="selectThing(thing)" data-ng-model="thing" active="selectedThing._id==thing._id"></due-item>
       </div>
     </div>
   </div>
@@ -65,7 +24,7 @@
   <div class="row">
     <div class="col-sm-2"></div>
     <div class="col-sm-8 things-container">
-        <due-item data-ng-repeat="thing in things | futureThings | filter:searchtext | orderBy:'due_date'" data-ng-click="selectThing(thing)" data-ng-model="thing" active="newThing._id==thing._id"></due-item>
+        <due-item data-ng-repeat="thing in things | futureThings | filter:searchtext | orderBy:'due_date'" data-ng-click="selectThing(thing)" data-ng-model="thing" active="selectedThing._id==thing._id"></due-item>
     </div>
   </div>
 </div>
