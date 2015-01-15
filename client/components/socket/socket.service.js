@@ -59,6 +59,18 @@ angular.module('dueAppApp')
           _.remove(array, {_id: item._id});
           cb(event, item, array);
         });
+
+        /**
+         * Syncs update items on 'model:update'
+         */
+        socket.on(modelName + ':update', function (item) {
+          var oldItem = _.find(array, {_id: item._id});
+          if (!oldItem) return;
+
+          var index = array.indexOf(oldItem);
+          array.splice(index, 1, item);
+          cb('updated', item, array);
+        });
       },
 
       /**

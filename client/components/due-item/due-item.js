@@ -1,4 +1,4 @@
-/** Created by Valentina on 12/01/2015. */
+/** Created by Leo on 12/01/2015. */
 'use strict';
 
 angular.module('dueAppApp')
@@ -26,7 +26,7 @@ angular.module('dueAppApp')
       return result;
     }
   })
-  .directive('dueItem', ['Utilities', function (Utilities) {
+  .directive('dueItem', ['$http','Utilities','Modal', function ($http, Utilities, Modal) {
       return {
           restrict: 'E',
           templateUrl: 'components/due-item/due-item.html',
@@ -36,9 +36,34 @@ angular.module('dueAppApp')
             var dt = new Date(scope.thing.due_date);
             var d = dt.getTime();
 
+            var refreshItemClass = function() {
+              var paid = scope.isPaid();
+              // pagato in anticipo o adesso
+              if (d >= now && paid) scope.class = 'thing-light-success';
+              // pagato
+              else if (d < now) scope.class = paid ? 'thing-success' : 'thing-danger';
+            };
+
+            var getInfoForPay = function() {
+              return {
+                title: scope.thing.name,
+                desc: scope.thing.info
+              };
+            };
+
+            var modalPay = Modal.confirm.pay(getInfoForPay(), function(state) {
+              scope.thing.state.push(state);
+              refreshItemClass();
+              $http.put('/api/things/'+scope.thing._id, scope.thing);
+            });
+
+            var modalDelete = Modal.confirm.delete(function(thing) {
+              scope.$parent.deleteThing(thing);
+            });
+
+
             scope.deleteThing = function() {
-              if (!confirm('Eliminare l\'elemento: '+scope.thing.name+'?')) return;
-              scope.$parent.deleteThing(scope.thing);
+              modalDelete(scope.thing.name, scope.thing);
             };
 
             scope.isOverPaid = function() {
@@ -76,22 +101,16 @@ angular.module('dueAppApp')
               return Math.floor(timeDiff / _MS_PER_DAY)+1;
             };
 
-
-            //var paid = (scope.thing.state && scope.thing.state.length);
-            var paid = scope.isPaid();
-            var s = '';
-            // pagato in anticipo o adesso
-            if (d>=now && paid) s='\'thing-light-success\':true';
-            // pagato
-            else if (d<now) s= paid ? '\'thing-success\':true' : '\'thing-danger\':true';
-
-            //if (scope.active) s = Utilities.strAppend(style, '\'thing-active\':true');
-            scope.thing_style = '{'+s+'}';
-
             scope.getStyle = function() {
               return (scope.active && scope.$parent.editor_opened) ? { 'background-color' : 'cadetblue' } : undefined;
             };
 
+            scope.pay = function() {
+              var state = {type:'', desc:'', date:(new Date()).getTime(), value:scope.getToPaidValue()};
+              modalPay(state);
+            };
+
+            refreshItemClass();
           }
       }
   }]);

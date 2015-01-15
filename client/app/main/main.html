@@ -2,7 +2,6 @@
 
 <header class="due-header">
   <div class="item-editor container">
-    <!--<pre>{{searchtext}}</pre>-->
     <div class="editor-header centered aslink" data-ng-click="toggle()" data-ng-hide="editor_opened">
       Clicca per <strong>aggiungere</strong> o <strong>modificare</strong> un elemento
     </div>
@@ -16,23 +15,13 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-5 inline-imputs">
-        <label>Scadenza:</label>
-        <div class="form-group form-group-sm">
-          <div class="input-group">
-            <input type="text" size="2" maxlength="2" class="form-control" placeholder="gg" data-ng-model="newThing.date_day">
-          </div>
-        </div>
-        <div class="form-group form-group-sm">
-          <div class="input-group">
-            <input type="text" size="2" maxlength="2" class="form-control" placeholder="MM" data-ng-model="newThing.date_month">
-          </div>
-        </div>
-        <div class="form-group form-group-sm">
-          <div class="input-group">
-            <input type="text" size="5" maxlength="4" class="form-control" placeholder="yyyy" data-ng-model="newThing.date_year">
-          </div>
-        </div>
+      <div class="col-sm-5">
+        <p class="input-group">
+          <input type="text" class="form-control" datepicker-popup="{{'dd/MM/yyyy'}}" ng-model="newThing.due_date" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="Chiudi" />
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="openDate($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+        </p>
       </div>
     </div>
     <div class="row" data-ng-show="editor_opened">

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('dueAppApp')
-  .factory('Modal', function ($rootScope, $modal) {
+  .factory('Modal', function ($rootScope, $modal, $templateCache) {
     /**
      * Opens a modal
      * @param  {Object} scope      - an object to be merged with modal's scope
@@ -49,7 +49,7 @@ angular.module('dueAppApp')
             deleteModal = openModal({
               modal: {
                 dismissable: true,
-                title: 'Confirm Delete',
+                title: 'Conferma Eliminazione',
                 html: '<p>Sicuro di voler eliminare <strong>' + name + '</strong> ?</p>',
                 buttons: [{
                   classes: 'btn-danger',
@@ -69,6 +69,52 @@ angular.module('dueAppApp')
 
             deleteModal.result.then(function(event) {
               del.apply(event, args);
+            });
+          };
+        },
+
+        /**
+         * Aggiunge il pagamento
+         * @param add
+         */
+        pay: function(info, add) {
+          add = add || angular.noop;
+
+          /**
+           * Apre il form modale
+           * @param thing
+           */
+          return function() {
+            var args = Array.prototype.slice.call(arguments),
+              payModal;
+
+
+            payModal = openModal({
+              modal: {
+                dismissable: true,
+                title: info.title,
+                desc: info.desc,
+                state: args[0],
+                template: 'components/payment/payment.html',
+                buttons: [{
+                  classes: 'btn-success',
+                  text: 'OK',
+                  click: function(e) { payModal.close(e); }
+                }, {
+                  classes: 'btn-warning',
+                  text: 'Annulla',
+                  click: function(e) { payModal.dismiss(e); }
+                }],
+                openDate: function(event) {
+                  event.preventDefault();
+                  event.stopPropagation();
+                  this.opened = true;
+                }
+              }
+            }, 'modal-standard');
+
+            payModal.result.then(function(event) {
+              add.apply(event, args);
             });
           };
         }

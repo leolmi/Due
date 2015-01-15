@@ -28,7 +28,6 @@ angular.module('dueAppApp')
     var _items = { first:undefined, last:undefined };
 
     $scope.things = [];
-    //$scope.things_config = {up:10, down:10};
 
     var loadThings = function() {
       if (_loading) return;
@@ -63,28 +62,24 @@ angular.module('dueAppApp')
 
     $scope.addThing = function() {
       if(!$scope.newThing) return;
-      resolveDate();
-      if ($scope.addThing._id) {
-        $http.put('/api/things', $scope.newThing);
+      if ($scope.newThing._id) {
+        $http.put('/api/things/'+$scope.newThing._id, $scope.newThing);
       }
       else {
         $http.post('/api/things', $scope.newThing);
       }
       $scope.createNewThing(true);
     };
-    var resolveDate = function() {
-      $scope.newThing.due_date = new Date($scope.newThing.date_year+'-'+$scope.newThing.date_month+'-'+$scope.newThing.date_day);
+
+    $scope.openDate = function($event) {
+      $event.preventDefault();
+      $event.stopPropagation();
+      $scope.opened = true;
     };
-    var loadDate = function(t) {
-      if (!t || !t.due_date) return;
-      var d = new Date(t.due_date);
-      t.date_year = d.getFullYear();
-      t.date_month = d.getMonth()+1;
-      t.date_day = d.getDate();
-    };
+
+
     $scope.selectThing = function(thing) {
       if (!$scope.editor_opened) return;
-      loadDate(thing);
       $scope.newThing = thing;
     };
     $scope.deleteThing = function(thing) {
@@ -95,14 +90,12 @@ angular.module('dueAppApp')
       socket.unsyncUpdates('thing');
     });
     $scope.createNewThing = function(focus) {
-      var t = {
+      $scope.newThing = {
         name: '',
         info: '',
-        due_date: new Date(),
+        due_date: (new Date()).getTime(),
         value: undefined
       };
-      loadDate(t);
-      $scope.newThing = t;
       if (focus) selectFirstControl();
     };
     $scope.createNewThing();

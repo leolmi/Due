@@ -88,8 +88,6 @@ exports.step = function(req, res) {
   var params = getParams(req);
   getThings(params, function(err, things) {
     if (err) return handleError(res, err);
-    //console.log('params step:'+JSON.stringify(params));
-    //console.log('things step:'+things);
     return res.json(200, things);
   });
 };
@@ -120,10 +118,12 @@ exports.update = function(req, res) {
   Thing.findById(req.params.id, function (err, thing) {
     if (err) { return handleError(res, err); }
     if(!thing) { return res.send(404); }
-    var updated = _.merge(thing, req.body);
+    var updated = _.merge(thing, req.body, function(a,b) {
+      return _.isArray(a) ? b : undefined;
+    });
     updated.save(function (err) {
       if (err) { return handleError(res, err); }
-      return res.json(200, thing);
+      return res.json(202, thing);
     });
   });
 };

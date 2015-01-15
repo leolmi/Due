@@ -1,0 +1,21 @@
+<p ng-show="modal.desc">{{modal.desc}}</p>
+<div class="form-group form-group-sm">
+  <div class="input-group">
+    <div class="input-group-addon">€</div>
+    <input type="text" class="form-control" id="first-control" placeholder="importo" data-ng-model="modal.state.value" autofocus>
+  </div>
+</div>
+<div class="form-group form-group-sm">
+  <div class="input-group">
+    <input type="text" class="form-control" datepicker-popup="{{'dd/MM/yyyy'}}" ng-model="modal.state.date" is-open="modal.opened" ng-required="true" close-text="Chiudi" />
+    <span class="input-group-btn">
+      <button type="button" class="btn btn-default" ng-click="modal.openDate($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+    </span>
+  </div>
+</div>
+<div class="form-group form-group-sm">
+  <input type="text" class="form-control" placeholder="modalità" data-ng-model="modal.state.type">
+</div>
+<div class="form-group form-group-sm">
+  <input type="text" class="form-control" placeholder="descrizione" data-ng-model="modal.state.desc">
+</div>
