@@ -48,6 +48,11 @@ angular.module('dueAppApp')
           }
           scope.createNewThing(true);
         };
+
+        scope.deleteState = function(state){
+          _.remove(scope.thing.state, {_id: state._id});
+          scope.addThing();
+        };
       }
     }
   });

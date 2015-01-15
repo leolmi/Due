@@ -76,10 +76,19 @@ angular.module('dueAppApp')
       return Utilities.getVersion();
     };
 
-    $scope.getContentStyle = function() {
-      var h = $('.item-editor').outerHeight()+$('.navbar').outerHeight()+20;
-      return { 'padding-top' : h+'px' };
+    var refreshContentStyle = function() {
+      var h = $('.item-editor').outerHeight() + $('.navbar').outerHeight() + 20;
+      if (h<130) h=130;
+      $scope.content_style = {'padding-top': h + 'px'};
     };
+
+    $scope.$watch('editor_opened', function(){
+      $timeout(function() {
+        refreshContentStyle();
+      });
+    });
+
+    refreshContentStyle();
 
     $scope.getToday = function() {
       return Utilities.getDateStr(new Date());
