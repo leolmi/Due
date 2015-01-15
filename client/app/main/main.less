@@ -1,3 +1,6 @@
+@import '../components/due-editor/due-editor.less';
+@import '../components/due-item/due-item.less';
+
 .thing-form {
   margin: 20px 0;
 }
@@ -141,38 +144,7 @@
   overflow: hidden;
   cursor: pointer;
 }
-.thing-success {
-  background-color: #5cb85c;
-  border-color: #4cae4c;
-}
-.thing-light-success {
-  color: black;
-  background-color: lightgreen;
-  border-color: darkseagreen;
-}
-.thing-warning {
-  background-color: #f0ad4e;
-  border-color: #eea236;
-}
-.thing-info {
-  background-color: #428bca;
-  border-color: #357ebd;
-}
-.thing-danger {
-  background-color: #d9534f;
-  border-color: #d43f3a;
-}
 
-.thing-todue {
-  float: right;
-  color: #ffffff;
-  background-color: #428bca;
-  border-radius: 20px;
-  display: inline-flex;
-  padding: 5px;
-  margin-right: -50px;
-  margin-top: -50px;
-}
 due-item > .list-group-item {
   margin-bottom: 4px;
 }
@@ -192,10 +164,4 @@ due-item > .list-group-item:hover {
   position: absolute;
   right: 10px;
   top: 6px;
-}
-
-.close-editor {
-  float: right;
-  margin-top: 10px;
-  font-size: 30px;
 }

@@ -49,9 +49,9 @@
   <div class="col-sm-8">
     <div class="list-group-item thing-state" ng-show="thing.state" ng-repeat="state in thing.state">
       <button type="button" class="close" data-ng-click="deleteState(state)">&times;</button>
-      <div class="thing-state-date">{{state.date}}</div>
+      <div class="thing-state-date"><strong>{{state.date}}</strong></div>
       <div class="thing-state-type">{{state.type}}</div>
-      <div class="thing-state-value">{{state.value}}</div>
+      <div class="thing-state-value">€ {{state.value}}</div>
     </div>
   </div>
 </div>
