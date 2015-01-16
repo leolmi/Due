@@ -1,6 +1,3 @@
-<!--<div class="editor-header centered aslink" data-ng-click="toggle()" data-ng-hide="eopened">-->
-  <!--Clicca per <strong>aggiungere</strong> o <strong>modificare</strong> un elemento-->
-<!--</div>-->
 <!--Valore e data-->
 <div class="row" data-ng-show="eopened">
   <div class="col-sm-2"></div>
@@ -41,17 +38,5 @@
     <button type="button" class="btn btn-success" ng-show="thing._id"  ng-click="addThing()">Modifica</button>
     <button type="button" class="btn btn-warning" ng-show="thing._id" ng-click="createNewThing(true)">Nuovo</button>
     <span class="glyphicon glyphicon-off aslink close-editor" data-ng-click="toggle()"></span>
-  </div>
-</div>
-<!--Pagamenti-->
-<div class="row" data-ng-show="eopened">
-  <div class="col-sm-2"></div>
-  <div class="col-sm-8">
-    <div class="list-group-item thing-state" ng-show="thing.state" ng-repeat="state in thing.state">
-      <button type="button" class="close" data-ng-click="deleteState(state)">&times;</button>
-      <div class="thing-state-date"><strong>{{state.date}}</strong></div>
-      <div class="thing-state-type">{{state.type}}</div>
-      <div class="thing-state-value">€ {{state.value}}</div>
-    </div>
   </div>
 </div>

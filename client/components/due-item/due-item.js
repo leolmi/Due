@@ -70,8 +70,13 @@ angular.module('dueAppApp')
               return (d<now && !scope.isPaid());
             };
 
-            scope.getDateStr = function () {
-              return Utilities.getDateStr(dt);
+            scope.getDateStr = function (d) {
+              if (!d) d=dt;
+              return Utilities.getDateStr(d);
+            };
+
+            scope.getStateDateStr = function(state) {
+              return Utilities.getDateStr(state.date);
             };
 
             scope.isPaid = function() {
@@ -108,6 +113,15 @@ angular.module('dueAppApp')
             scope.pay = function() {
               var state = {type:'', desc:'', date:(new Date()).getTime(), value:scope.getToPaidValue()};
               modalPay(state);
+            };
+
+            scope.toggleThing = function() {
+              scope.details = !scope.details;
+            };
+
+            scope.deleteState = function(state){
+              _.remove(scope.thing.state, {_id: state._id});
+              Utilities.refreshThing(scope.thing);
             };
 
             refreshItemClass();

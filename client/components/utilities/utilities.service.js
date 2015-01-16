@@ -4,9 +4,12 @@
 'use strict';
 
 angular.module('dueAppApp')
-  .factory('Utilities', function() {
+  .factory('Utilities', ['$http', function($http) {
     var getDateStr = function (d) {
-      return strFill(d.getDate())+'/'+strFill(d.getMonth()+1)+'/'+d.getFullYear();
+      if (d instanceof Date)
+        return strFill(d.getDate())+'/'+strFill(d.getMonth()+1)+'/'+d.getFullYear();
+      var dt = new Date(d);
+      return getDateStr(new Date(dt));
     };
 
     var strAppend = function(s, v, sep) {
@@ -28,12 +31,23 @@ angular.module('dueAppApp')
       return '1.0.3';
     };
 
+    var refreshThing = function(thing, next) {
+      if (!thing || !thing._id) return;
+      next = next | angular.noop;
+      $http.put('/api/things/'+thing._id, thing)
+        .success(function(){
+          next();
+        });
+    };
+
     return {
       // Restituisce la data in formato stringa
       getDateStr: getDateStr,
       // aggiunge la stringa tenuto conto del separatore
       strAppend: strAppend,
       // Restituisce la versione
-      getVersion: getVersion
+      getVersion: getVersion,
+      // Aggiorna la cosa
+      refreshThing: refreshThing
     }
-  });
+  }]);

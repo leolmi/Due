@@ -10,23 +10,6 @@ angular.module('dueAppApp')
       templateUrl: 'components/due-editor/due-editor.html',
       scope: {thing: '=ngModel', eopened:'='},
       link: function (scope, elm, attr) {
-        //var selectFirstControl = function() {
-        //  $timeout(function() {
-        //    $("#first-control").focus();
-        //  });
-        //};
-
-        //scope.createNewThing = function(focus) {
-        //  scope.thing = {
-        //    name: '',
-        //    info: '',
-        //    due_date: (new Date()).getTime(),
-        //    value: undefined
-        //  };
-        //  if (focus) selectFirstControl();
-        //};
-        //scope.createNewThing();
-
         scope.toggle = function() {
           scope.eopened = !scope.eopened;
           if (scope.eopened) scope.$parent.createNewThing(true);
@@ -47,11 +30,6 @@ angular.module('dueAppApp')
             $http.post('/api/things', scope.thing);
           }
           scope.$parent.createNewThing(true);
-        };
-
-        scope.deleteState = function(state){
-          _.remove(scope.thing.state, {_id: state._id});
-          scope.addThing();
         };
       }
     }

@@ -1,3 +1,59 @@
+.things-container button.close {
+  position: absolute;
+  right: 10px;
+  top: 6px;
+  z-index: 3;
+}
+.things-container button.close.down {
+  bottom:6px;
+  top: auto;
+  font-size: small;
+}
+
+due-item > .list-group-item {
+  margin-bottom: 4px;
+}
+due-item > .list-group-item:hover {
+  border: #000000 1px dashed;
+}
+
+.due-item-content {
+  display: inline-block;
+//  margin-bottom: 10px;
+  min-width: 100%;
+}
+.due-item-row {
+  position: relative;
+}
+
+.thing {
+  float: right;
+  padding: 10px 8px;
+  border-radius: 4px;
+  border-bottom: 1px solid transparent;
+}
+.thing-active {
+  border-style: solid;
+  border-width: 2px;
+}
+
+.thing-action {
+  top: 8px;
+  position: absolute;
+}
+
+.thing-date {
+//  margin-right: 10px;
+}
+.thing-value {
+  background-color: #f0ad4e;
+  min-width: 60px;
+  text-align: right;
+}
+.thing-value-paid {
+  font-size: smaller;
+}
+
 .thing-success {
   background-color: #5cb85c;
   border-color: #4cae4c;
@@ -27,6 +83,44 @@
   border-radius: 20px;
   display: inline-flex;
   padding: 5px;
-  margin-right: -50px;
+  margin-right: -40px;
   margin-top: -50px;
+}
+
+.down {
+  position: absolute;
+  right: 10px;
+  bottom: 6px;
+}
+
+.thing-states-container {
+  margin-top: 10px;
+  margin-right: 20px;
+  position: relative;
+}
+.thing-states-container > .list-group-item {
+  cursor: default;
+  padding: 4px 8px;
+}
+.thing-state {
+  position: relative;
+  color: #333;
+}
+.thing-state-date {
+  display: inline-block;
+}
+.thing-state-type {
+  display: inline-block;
+}
+.thing-state-value {
+  margin-right: 10px;
+  border-right: #4cae4c 1px solid;
+  border-left: #4cae4c 1px solid;
+  color: #ffffff;
+  background-color: #5cb85c;
+  position: absolute;
+  right: 30px;
+  height: 100%;
+  top: 0px;
+  padding: 4px 10px 0 10px;
 }
