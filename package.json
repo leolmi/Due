@@ -91,5 +91,6 @@
     "test": "grunt test",
     "update-webdriver": "node node_modules/grunt-protractor-runner/node_modules/protractor/bin/webdriver-manager update"
   },
+  "author": "leo",
   "private": true
 }
