@@ -32,6 +32,8 @@ module.exports = function(app) {
   app.use(cookieParser());
   app.use(passport.initialize());
 
+  console.log('FINO A QUI: 5');
+
   // Persist sessions with mongoStore
   // We need to enable sessions for passport twitter because its an oauth 1.0 strategy
   app.use(session({
@@ -40,12 +42,18 @@ module.exports = function(app) {
     saveUninitialized: true,
     store: new mongoStore({ mongoose_connection: mongoose.connection })
   }));
-  
+  console.log('FINO A QUI: 8');
+
   if ('production' === env) {
-    app.use(favicon(path.join(config.root, 'public', 'favicon.ico')));
-    app.use(express.static(path.join(config.root, 'public')));
-    app.set('appPath', config.root + '/public');
+    //app.use(favicon(path.join(config.root, 'public', 'favicon.ico')));
+    //app.use(express.static(path.join(config.root, 'public')));
+    //app.set('appPath', config.root + '/public');
+    app.use(express.static(path.join(config.root, 'client')));
+    console.log('FINO A QUI: 12');
+    app.set('appPath', 'client');
+    console.log('FINO A QUI: 16');
     app.use(morgan('dev'));
+    console.log('FINO A QUI: 19');
   }
 
   if ('development' === env || 'test' === env) {
