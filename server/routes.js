@@ -5,11 +5,9 @@
 'use strict';
 
 var errors = require('./components/errors');
-var favicon = require('serve-favicon');
 
 module.exports = function(app) {
 
-  app.use(favicon(__dirname + '/public/favicon.ico'));
   // Insert routes below
   app.use('/api/things', require('./api/thing'));
   app.use('/api/users', require('./api/user'));
