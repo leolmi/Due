@@ -5,11 +5,16 @@
 'use strict';
 
 // Set default node environment to development
-process.env.NODE_ENV = process.env.NODE_ENV || 'production';
+process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+
+console.log('LETTO: NODE_ENV='+process.env.NODE_ENV);
 
 var express = require('express');
 var mongoose = require('mongoose');
 var config = require('./config/environment');
+
+
+console.log('LETTO: mongo.uri='+config.mongo.uri);
 
 // Connect to database
 mongoose.connect(config.mongo.uri, config.mongo.options);
