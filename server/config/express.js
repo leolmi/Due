@@ -32,7 +32,7 @@ module.exports = function(app) {
   app.use(cookieParser());
   app.use(passport.initialize());
 
-  //console.log('FINO A QUI: 5');
+  console.log('config:'+JSON.stringify(congig));
 
   // Persist sessions with mongoStore
   // We need to enable sessions for passport twitter because its an oauth 1.0 strategy
