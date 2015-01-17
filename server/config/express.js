@@ -32,7 +32,7 @@ module.exports = function(app) {
   app.use(cookieParser());
   app.use(passport.initialize());
 
-  console.log('FINO A QUI: 5');
+  //console.log('FINO A QUI: 5');
 
   // Persist sessions with mongoStore
   // We need to enable sessions for passport twitter because its an oauth 1.0 strategy
@@ -42,14 +42,17 @@ module.exports = function(app) {
     saveUninitialized: true,
     store: new mongoStore({ mongoose_connection: mongoose.connection })
   }));
-  console.log('FINO A QUI: 8');
+  //console.log('FINO A QUI: 8');
 
   if ('production' === env) {
     //app.use(favicon(path.join(config.root, 'public', 'favicon.ico')));
     //app.use(express.static(path.join(config.root, 'public')));
     //app.set('appPath', config.root + '/public');
+
+    console.log('root:'+config.root);
+    app.use(favicon(path.join(config.root, 'client', 'favicon.ico')));
     app.use(express.static(path.join(config.root, 'client')));
-    app.set('appPath', 'client');
+    app.set('appPath', config.root, '/client');
     app.use(morgan('dev'));
   }
 
