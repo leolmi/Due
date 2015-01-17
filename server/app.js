@@ -14,6 +14,7 @@ var mongoose = require('mongoose');
 var config = require('./config/environment');
 
 
+
 console.log('LETTO: mongo.uri='+config.mongo.uri);
 
 // Connect to database
