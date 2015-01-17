@@ -11,7 +11,9 @@ angular.module('dueAppApp')
     //  path: '/socket.io-client'
     //});
 
-    var ioSocket = io('https://nameless-everglades-6768.herokuapp.com:8000');
+    //var ioSocket = io('https://nameless-everglades-6768.herokuapp.com:8000');
+
+    var ioSocket = io.connect('/');
 
     var socket = socketFactory({
       ioSocket: ioSocket
