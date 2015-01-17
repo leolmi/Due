@@ -49,11 +49,8 @@ module.exports = function(app) {
     //app.use(express.static(path.join(config.root, 'public')));
     //app.set('appPath', config.root + '/public');
     app.use(express.static(path.join(config.root, 'client')));
-    console.log('FINO A QUI: 12');
     app.set('appPath', 'client');
-    console.log('FINO A QUI: 16');
     app.use(morgan('dev'));
-    console.log('FINO A QUI: 19');
   }
 
   if ('development' === env || 'test' === env) {
