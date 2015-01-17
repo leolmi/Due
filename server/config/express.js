@@ -49,10 +49,12 @@ module.exports = function(app) {
     //app.use(express.static(path.join(config.root, 'public')));
     //app.set('appPath', config.root + '/public');
 
-    console.log('root:'+config.root);
-    app.use(favicon(path.join(config.root, 'client', 'favicon.ico')));
-    app.use(express.static(path.join(config.root, 'client')));
-    app.set('appPath', config.root, '/client');
+
+    var clpath = path.join(config.root, 'client');
+    console.log('root:'+config.root+'    client:'+clpath);
+    app.use(favicon(path.join(clpath, 'favicon.ico')));
+    app.use(express.static(clpath));
+    app.set('appPath', clpath);
     app.use(morgan('dev'));
   }
 
