@@ -27,10 +27,6 @@ angular.module('dueAppApp')
       return tmpl.slice(0, tmpl.length- v.length)+v;
     };
 
-    var getVersion = function() {
-      return '1.0.3';
-    };
-
     var refreshThing = function(thing, next) {
       if (!thing || !thing._id) return;
       next = next | angular.noop;
@@ -45,8 +41,6 @@ angular.module('dueAppApp')
       getDateStr: getDateStr,
       // aggiunge la stringa tenuto conto del separatore
       strAppend: strAppend,
-      // Restituisce la versione
-      getVersion: getVersion,
       // Aggiorna la cosa
       refreshThing: refreshThing
     }

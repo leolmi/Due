@@ -23,7 +23,8 @@ var all = {
 
   // Should we populate the DB with sample data?
   seedDB: false,
-
+  // La versione viene passata dalle costanti d'ambiente
+  version: process.env.APP_VER || '1.0.0',
   // Secret for session, you will want to change this and make it an environment variable
   secrets: {
     session: 'due-app-secret'

@@ -72,9 +72,9 @@ angular.module('dueAppApp')
       socket.unsyncUpdates('thing');
     });
 
-    $scope.getVersion = function() {
-      return Utilities.getVersion();
-    };
+    $http.get('/api/infos').success(function (infos) {
+      $scope.infos = infos;
+    });
 
     var checkDueHeaderStyle = function() {
       $('.due-header').css('display','block');
