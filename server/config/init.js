@@ -8,7 +8,16 @@ var User = require('../api/user/user.model');
 
 
 User.find({}).remove(function() {
-  console.log('Terminato di brasare le cose.');
+  User.create({
+    _id: admin_id,
+    provider: 'local',
+    role: 'admin',
+    name: 'Admin',
+    email: 'leo.olmi@gmail.com',
+    password: 'carciofo'
+  },function() {
+    console.log('Terminato di brasare gli utenti.');
+  });
 });
 
 Thing.find({}).remove(function() {

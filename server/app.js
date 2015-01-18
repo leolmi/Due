@@ -23,10 +23,10 @@ mongoose.connect(config.mongo.uri, config.mongo.options);
 // Popola il database con dati d'esempio
 if(config.seedDB) { require('./config/seed'); }
 // Inizializza il database
-else if (config.actionDB=='init') { require('.config/init'); }
-
+else if (config.actionDB=='init') { require('./config/init'); }
 //Verifica del db
-require('.config/check');
+else { require('./config/check'); }
+
 // Setup server
 var app = express();
 var server = require('http').createServer(app);
