@@ -5,7 +5,7 @@
 
 var Thing = require('../api/thing/thing.model');
 var User = require('../api/user/user.model');
-
+var admin_id = '54b3e04cde6279a8211b42fe';
 
 User.find({}).remove(function() {
   User.create({

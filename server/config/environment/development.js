@@ -8,5 +8,5 @@ module.exports = {
     uri: 'mongodb://localhost/dueapp-dev'
   },
 
-  seedDB: false
+  seedDB: true
 };
