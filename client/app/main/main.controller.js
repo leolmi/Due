@@ -77,7 +77,7 @@ angular.module('dueAppApp')
     };
 
     var checkDueHeaderStyle = function() {
-      $('.due-header').css('display','initial');
+      $('.due-header').css('display','block');
     };
 
     var refreshContentStyle = function() {
