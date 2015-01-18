@@ -1,5 +1,5 @@
 <!--Valore e data-->
-<div class="row" data-ng-show="eopened">
+<div class="row">
   <div class="col-sm-2"></div>
   <div class="col-sm-3">
     <div class="form-group form-group-sm">
@@ -19,7 +19,7 @@
   </div>
 </div>
 <!--Nome e note-->
-<div class="row" data-ng-show="eopened">
+<div class="row">
   <div class="col-sm-2"></div>
   <div class="col-sm-8">
     <div class="form-group form-group-sm">
@@ -31,12 +31,12 @@
   </div>
 </div>
 <!--Pulsanti-->
-<div class="row" data-ng-show="eopened">
+<div class="row">
   <div class="col-sm-2"></div>
   <div class="col-sm-8">
     <button type="button" class="btn btn-primary" ng-hide="thing._id"  ng-click="addThing()">Aggiungi</button>
     <button type="button" class="btn btn-success" ng-show="thing._id"  ng-click="addThing()">Modifica</button>
-    <button type="button" class="btn btn-warning" ng-show="thing._id" ng-click="createNewThing(true)">Nuovo</button>
+    <button type="button" class="btn btn-warning" ng-show="thing._id" ng-click="$parent.createNewThing(true)">Nuovo</button>
     <span class="glyphicon glyphicon-off aslink close-editor" data-ng-click="toggle()"></span>
   </div>
 </div>

@@ -7805,6 +7805,7 @@ due-item > .list-group-item:hover {
   position: fixed;
   width: 100%;
   z-index: 10;
+  display: none;
 }
 .due-header:hover {
   color: #ff8c00;

@@ -7,9 +7,17 @@
 
 var Thing = require('../api/thing/thing.model');
 var User = require('../api/user/user.model');
+var admin_id = '54b3e04cde6279a8211b42fe';
 
 User.find({}).remove(function() {
   User.create({
+    _id: admin_id,
+    provider: 'local',
+    role: 'admin',
+    name: 'Admin',
+    email: 'admin@admin.com',
+    password: 'admin'
+  },{
       _id: '54b3e04cde6279a8211b42fd',
       provider: 'local',
       name: 'Test User',

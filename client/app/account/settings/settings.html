@@ -17,7 +17,7 @@
           <label>Nuova Password</label>
           <input type="password" name="newPassword" class="form-control" ng-model="user.newPassword" ng-minlength="3" required/>
           <p class="help-block" ng-show="(form.newPassword.$error.minlength || form.newPassword.$error.required) && (form.newPassword.$dirty || submitted)">
-            La password deve avere almento 3 caratteri.
+            La password deve avere almeno 3 caratteri.
           </p>
         </div>
         <p class="help-block"> {{ message }} </p>

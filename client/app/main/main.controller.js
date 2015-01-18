@@ -76,7 +76,13 @@ angular.module('dueAppApp')
       return Utilities.getVersion();
     };
 
+    var checkDueHeaderStyle = function() {
+      $('.due-header').css('display','initial');
+    };
+
     var refreshContentStyle = function() {
+      if ($scope.editor_opened)
+        checkDueHeaderStyle();
       var h = $('.item-editor').outerHeight() + $('.navbar').outerHeight();
       if (h<71) h=51;
       $scope.content_style = {'padding-top': h + 'px'};

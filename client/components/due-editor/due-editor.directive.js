@@ -12,7 +12,9 @@ angular.module('dueAppApp')
       link: function (scope, elm, attr) {
         scope.toggle = function() {
           scope.eopened = !scope.eopened;
-          if (scope.eopened) scope.$parent.createNewThing(true);
+          if (scope.eopened) {
+            scope.$parent.createNewThing(true);
+          }
         };
 
         scope.openDate = function($event) {

@@ -15,7 +15,6 @@
         <li ng-repeat="item in menu" ng-class="{active: isActive(item.link)}" ng-show="isVisible(item)">
             <a ng-href="{{item.link}}" class="aslink" ng-click="clickOnItem(item)">{{item.title}}</a>
         </li>
-        <li ng-show="isLoggedIn() && isActive('/')" ng-class="{}"><a href="#" ng-click="toggleEditor()"><span class="glyphicon"></span></a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li ng-show="isLoggedIn()" ng-class="{active: isActive('/settings')}"><a href="/settings">{{ getCurrentUser().name }}</a></li>
