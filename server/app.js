@@ -20,9 +20,13 @@ console.log('LETTO: mongo.uri='+config.mongo.uri);
 // Connect to database
 mongoose.connect(config.mongo.uri, config.mongo.options);
 
-// Populate DB with sample data
+// Popola il database con dati d'esempio
 if(config.seedDB) { require('./config/seed'); }
+// Inizializza il database
+else if (config.actionDB=='init') { require('.config/init'); }
 
+//Verifica del db
+require('.config/check');
 // Setup server
 var app = express();
 var server = require('http').createServer(app);

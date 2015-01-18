@@ -15,13 +15,6 @@ User.find({}).remove(function() {
       name: 'Test User',
       email: 'test@test.com',
       password: 'test'
-    }, {
-      _id: '54b3e04cde6279a8211b42fe',
-      provider: 'local',
-      role: 'admin',
-      name: 'Admin',
-      email: 'admin@admin.com',
-      password: 'admin'
     }, function() {
       console.log('finished populating users');
     }

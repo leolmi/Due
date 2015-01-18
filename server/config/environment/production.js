@@ -21,5 +21,5 @@ module.exports = {
             'mongodb://localhost/dueapp'
   },
 
-  seedDB: true
+  actionDB: process.env.DB_ACTION
 };
