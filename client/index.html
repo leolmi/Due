@@ -29,6 +29,11 @@
     <!-- Add your site or application content here -->
     <div ng-view=""></div>
 
+    <footer class="footer">
+      <div class="container">
+        <p>Little Poor v{{infos.version}} | <a href="https://twitter.com/@GnaGniGno">NewT</a></p>
+      </div>
+    </footer>
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -69,6 +74,8 @@
           <script src="app/account/signup/signup.controller.js"></script>
           <script src="app/admin/admin.controller.js"></script>
           <script src="app/admin/admin.js"></script>
+          <script src="app/due/due.controller.js"></script>
+          <script src="app/list/list.controller.js"></script>
           <script src="app/main/main.controller.js"></script>
           <script src="app/main/main.js"></script>
           <script src="components/auth/auth.service.js"></script>

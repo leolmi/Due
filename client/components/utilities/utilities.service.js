@@ -36,12 +36,24 @@ angular.module('dueAppApp')
         });
     };
 
+    var useInfos  = function(next) {
+      $http.get('/api/infos')
+        .success(function (infos) {
+          next(infos);
+        })
+        .error(function() {
+          next(err);
+        });
+    }
+
     return {
       // Restituisce la data in formato stringa
       getDateStr: getDateStr,
       // aggiunge la stringa tenuto conto del separatore
       strAppend: strAppend,
       // Aggiorna la cosa
-      refreshThing: refreshThing
+      refreshThing: refreshThing,
+      // carica le informazioni
+      useInfos: useInfos
     }
   }]);

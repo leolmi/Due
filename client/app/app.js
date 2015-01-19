@@ -10,6 +10,14 @@ angular.module('dueAppApp', [
 ])
   .config(function ($routeProvider, $locationProvider, $httpProvider) {
     $routeProvider
+      .when('/due', {
+        templateUrl: 'app/due/due.html',
+        controller: 'DueCtrl'
+      })
+      .when('/list', {
+        templateUrl: 'app/list/list.html',
+        controller: 'ListCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
@@ -44,8 +52,13 @@ angular.module('dueAppApp', [
     };
   })
 
-  .run(function ($rootScope, $location, Auth) {
+  .run(function ($rootScope, $location, Auth, Utilities) {
     $rootScope.searchtext = '';
+
+    Utilities.useInfos(function(infos){
+      $rootScope.infos = infos;
+    });
+
     // Redirect to login if route requires auth and you're not logged in
     $rootScope.$on('$routeChangeStart', function (event, next) {
       Auth.isLoggedInAsync(function(loggedIn) {

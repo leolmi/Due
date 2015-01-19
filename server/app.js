@@ -18,7 +18,12 @@ var config = require('./config/environment');
 console.log('LETTO: mongo.uri='+config.mongo.uri);
 
 // Connect to database
-mongoose.connect(config.mongo.uri, config.mongo.options);
+mongoose.connect(config.mongo.uri, config.mongo.options, function(err) {
+  if (err) {
+    console.log('CONNECTION FAILED: '+err);
+  }
+  if (err) throw err;
+});
 
 // Popola il database con dati d'esempio
 if(config.seedDB) { require('./config/seed'); }
