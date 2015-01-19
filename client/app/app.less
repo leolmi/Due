@@ -5,7 +5,7 @@
 @fa-font-path: '/bower_components/font-awesome/fonts';
 @due-header-color: dimgray;
 @due-header-hovercolor: darkorange;
-@due-header-backcolor: wheat; // #f8f8f8;
+@due-header-backcolor: #333; // #f8f8f8;
 @due-header-bordercolor: #e7e7e7;
 
 /**
@@ -23,7 +23,7 @@
   background-color: @due-header-backcolor;
   border-color: @due-header-bordercolor;
 }
-.navbar-default .navbar-brand {
+.navbar .navbar-brand {
   padding-top: 10px;
 }
 
@@ -33,7 +33,7 @@
 .navbar-default .navbar-nav > li > a {
   color: @due-header-color;
 }
-.navbar-default .navbar-nav > li > a:hover {
+.navbar.navbar-nav > li > a:hover {
   color: @due-header-hovercolor;
 }
 .navbar-form input {
@@ -63,6 +63,9 @@
   position: relative;
   padding-top: 50px;
 }
+.dot {
+
+}
 
 // injector
 @import 'account/login/login.less';
@@ -71,4 +74,5 @@
 @import 'due-editor/due-editor.less';
 @import 'due-item/due-item.less';
 @import 'modal/modal.less';
+@import 'navbar/navbar.less';
 // endinjector

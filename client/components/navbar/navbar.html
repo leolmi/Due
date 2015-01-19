@@ -1,4 +1,4 @@
-<div class="navbar navbar-default navbar-fixed-top" ng-controller="NavbarCtrl">
+<div class="navbar navbar-inverse navbar-fixed-top" ng-controller="NavbarCtrl">
   <div class="container">
     <div class="navbar-header">
       <button class="navbar-toggle" type="button" ng-click="isCollapsed = !isCollapsed">
@@ -8,17 +8,11 @@
         <span class="icon-bar"></span>
       </button>
       <a href="/" class="navbar-brand"><img src="assets/images/pig-32.png"></a>
-      <a href="#" class="navbar-brand editor-toggle" ng-hide="editor_opened || !isActive('/')"><span class="glyphicon glyphicon-pencil" ng-click="toggleEditor()"></span></a>
+      <a href="#" class="navbar-brand editor-toggle" ng-show="!editor_opened && (isActive('/due') || isActive('/list'))"><span class="glyphicon glyphicon-pencil" ng-click="toggleEditor()"></span></a>
     </div>
     <div collapse="isCollapsed" class="navbar-collapse collapse" id="navbar-main">
-      <ul class="nav navbar-nav">
-        <li ng-repeat="item in menu" ng-class="{active: isActive(item.link)}" ng-show="isVisible(item)">
-            <a ng-href="{{item.link}}" class="aslink" ng-click="clickOnItem(item)">{{item.title}}</a>
-        </li>
-      </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li ng-show="isLoggedIn()" ng-class="{active: isActive('/settings')}"><a href="/settings">{{ getCurrentUser().name }}</a></li>
-        <li ng-show="isLoggedIn()" ng-class="{active: isActive('/logout')}"><a href="" ng-click="logout()">Esci</a></li>
+        <li ng-class="{active: isActive('/logout')}"><a href="" ng-click="logout()">Esci</a></li>
       </ul>
       <form class="navbar-form navbar-right" role="search" ng-show="onDue()">
         <div class="form-group">

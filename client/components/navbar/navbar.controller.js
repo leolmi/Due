@@ -12,15 +12,24 @@ angular.module('dueAppApp')
       alert('Elimina l\'oggetto: '+JSON.stringify(obj));
     });
 
-    $scope.menu = [{
-        'title': 'Scadenze',
-        'link': '/'
-      },
-      {
-        'title': 'Utenti',
-        'link': '/admin',
-        'visible': Auth.isAdmin
-      }];
+    $scope.onPath = function(path) {
+      return ($location.path() === path);
+    };
+
+
+    //$scope.menu = [{
+    //  'glyphicon': 'glyphicon-tasks',
+    //  'link': '/due',
+    //  'visible': $scope.onPath('/due')
+    //},{
+    //  'glyphicon': 'glyphicon-shopping-cart',
+    //  'link': '/list',
+    //  'visible': $scope.onPath('/list')
+    //},{
+    //  'title': 'Utenti',
+    //  'link': '/admin',
+    //  'visible': Auth.isAdmin
+    //}];
 
     $scope.isCollapsed = true;
     $scope.isLoggedIn = Auth.isLoggedIn;
@@ -38,10 +47,6 @@ angular.module('dueAppApp')
       if ((typeof item.action)=='function') {
         item.action();
       }
-    };
-
-    $scope.onDue = function() {
-      return ($location.path() === '/');
     };
 
     $scope.search = function(text) {

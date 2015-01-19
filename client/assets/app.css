@@ -7405,7 +7405,7 @@ button.close {
   background-color: #f5deb3;
   border-color: #e7e7e7;
 }
-.navbar-default .navbar-brand {
+.navbar .navbar-brand {
   padding-top: 10px;
 }
 .navbar-default .navbar-text {
@@ -7414,7 +7414,7 @@ button.close {
 .navbar-default .navbar-nav > li > a {
   color: #696969;
 }
-.navbar-default .navbar-nav > li > a:hover {
+.navbar .navbar-nav > li > a:hover {
   color: #ff8c00;
 }
 .navbar-form input {
@@ -7801,7 +7801,7 @@ due-item > .list-group-item:hover {
 .due-header {
   margin-top: 50px;
   color: #696969;
-  background-color: #f5deb3;
+  background-color: #222;
   position: fixed;
   width: 100%;
   z-index: 10;
@@ -7870,7 +7870,7 @@ due-item > .list-group-item:hover {
 
 
 .main-menu {
-  margin: 100px 0;
+  margin: 80px 0;
   position: relative;
   text-align: center;
   width: 100%;
@@ -7889,4 +7889,14 @@ due-item > .list-group-item:hover {
 }
 .main-menu > a:hover {
   color: #ff8c00;
+  border-color: #ff8c00;
+}
+
+.navbar-inverse .navbar-nav > .active > a,
+.navbar-inverse .navbar-nav > .active > a:hover,
+.navbar-inverse .navbar-nav > .active > a:focus {
+  background-color: #ff8c00;
+}
+.navbar-inverse .navbar-toggle .icon-bar {
+  background-color: #ff8c00;
 }
