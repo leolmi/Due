@@ -5,19 +5,27 @@
     font-size: 2em;
     border-bottom: #ddd 1px solid;
   }
-  .list-item > button.close{
-    position: absolute;
-    right: -16px;
-  }
-  .list-item > span {
+  .list-item > span.selector {
     position: absolute;
     top: 8px;
-    right: 4px;
+    right: 12px;
+  }
+  .list-item > span.glyphicon-remove-circle {
+    position: absolute;
+    top: 8px;
+    right: -44px;
+  }
+  .list-item > span:hover {
+    color: #ff8c00;
+  }
+  span.glyphicon-remove-circle:hover {
+    color: red;
   }
 </style>
 
 <div class="list-item">
   <strong>{{index}}. {{item.desc}}</strong>
-  <span class="glyphicon glyphicon-unchecked"></span>
-  <button ng-show="deletable" type="button" class="close" data-ng-click="deleteElement(item)">&times;</button>
+  <span class="glyphicon aslink selector" ng-class="{'glyphicon-ok':item.selected, 'glyphicon-record':!item.selected }" data-ng-click="toggleState()"></span>
+  <span class="glyphicon glyphicon-remove-circle aslink" ng-show="deletable" data-ng-click="deleteElement(item)"></span>
+  <!--<button ng-show="deletable" type="button" class="close" data-ng-click="deleteElement(item)">&times;</button>-->
 </div>

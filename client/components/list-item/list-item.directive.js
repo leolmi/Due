@@ -11,6 +11,10 @@ angular.module('dueAppApp')
         scope.deleteElement = function(item) {
           scope.$parent.deleteListItem(item);
         };
+
+        scope.toggleState = function(){
+          scope.item.selected = !scope.item.selected;
+        };
       }
     }
   }]);
