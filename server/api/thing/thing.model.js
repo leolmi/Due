@@ -7,11 +7,13 @@ var ThingStateSchema = new Schema({
   type: String,
   desc: String,
   date: Date,
-  value: Number
+  value: Number,
+  selected: Boolean
 });
 
 var ThingSchema = new Schema({
   owner: String,
+  type: String,
   name: String,
   info: String,
   due_date: { type: Date, default: Date.now },

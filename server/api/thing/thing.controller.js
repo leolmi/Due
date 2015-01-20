@@ -13,16 +13,16 @@ var _ = require('lodash');
 var Thing = require('./thing.model');
 var _STEP_COUNT = 10;
 
-var getThings = function(params, next) {
+
+var getDueThings = function(params, next) {
   var now = new Date().getTime();
   //console.log('getThings - params.prev='+params.prev);
-  var filter = params.prev ?
-    {owner:params.user_id, $where : "this.due_date.getTime() < "+now } :
-    {owner:params.user_id, $where : "this.due_date.getTime() >= "+now };
+  var where = params.prev ? "this.due_date.getTime() < "+now : "this.due_date.getTime() >= "+now;
+  where += ' && !this.type';
+  var filter = {owner:params.user_id, $where: where};
   var sort_type = params.prev ? 'desc' : 'asc';
 
   //console.log('filter:'+JSON.stringify(filter)+'  sort:'+sort_type);
-
   Thing.find(filter).sort({due_date: sort_type}).exec(function (err, things) {
     //console.log('fatto:'+err);
     if(err) next(err);
@@ -45,6 +45,19 @@ var getThings = function(params, next) {
   });
 };
 
+var getListThings = function(params, next) {
+  var filter = {owner:params.user_id, type:'list'};
+  Thing.find(filter).sort({name: 'asc'}).exec(function (err, things) {
+    if(err) next(err);
+    else next(undefined, things);
+  });
+};
+
+var getThings = function(params, next) {
+  if (params.element_type=='list') { return getListThings(params, next); }
+  else { return getDueThings(params, next); }
+};
+
 var getIndexOf = function(array, id) {
   for(var i=0, max=array.length; i < max; i++) {
     //console.log('array[i]: '+array[i]._id+'      id:'+id);
@@ -57,10 +70,14 @@ var getIndexOf = function(array, id) {
 
 
 var getParams = function(req) {
+  console.log('req.body:'+JSON.stringify(req.body));
+  console.log('req.params:'+JSON.stringify(req.params));
+  console.log('req.query:'+JSON.stringify(req.query));
   return {
     user_id: req.user._id,
     step: req.params.step ? req.params.step : _STEP_COUNT,
     element_id: req.params.id,
+    element_type: req.params.type || req.query.type,
     prev: (req.params.prev && req.params.prev.toString()=='true') ? true : false
   };
 };
@@ -69,18 +86,23 @@ var getParams = function(req) {
 exports.index = function(req, res) {
   var things = [];
   var params = getParams(req);
-  //console.log('params:'+JSON.stringify(params));
+  console.log('params:'+JSON.stringify(params));
   getThings(params, function(err, things_next) {
     if (err) return handleError(res, err);
     things.push.apply(things, things_next);
     //console.log('things next:'+things);
-    params.prev = true;
-    getThings(params, function(err, things_prev) {
-      if (err) return handleError(res, err);
-      things.push.apply(things, things_prev);
-      //console.log('things next e prev:'+things);
+    if (params.element_type=='list') {
       return res.json(200, things);
-    });
+    }
+    else {
+      params.prev = true;
+      getThings(params, function (err, things_prev) {
+        if (err) return handleError(res, err);
+        things.push.apply(things, things_prev);
+        //console.log('things next e prev:'+things);
+        return res.json(200, things);
+      });
+    }
   });
 };
 
@@ -114,6 +136,8 @@ exports.create = function(req, res) {
 
 // Updates an existing thing in the DB.
 exports.update = function(req, res) {
+  console.log('req.params:'+JSON.stringify(req.params));
+  console.log('req.body:'+JSON.stringify(req.body));
   if(req.body._id) { delete req.body._id; }
   Thing.findById(req.params.id, function (err, thing) {
     if (err) { return handleError(res, err); }

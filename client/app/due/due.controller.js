@@ -39,26 +39,30 @@ angular.module('dueAppApp')
       var id = _getup ? _items.first : _items.last;
       var appendmode = $scope.things.length;
       var url = appendmode ? '/api/things/'+id+'/'+_getup : '/api/things';
-      $http.get(url).success(function (things) {
-        if (things && things.length) {
-          things.sort(function(t1, t2){return (new Date(t1.due_date)).getTime()-(new Date(t2.due_date)).getTime()});
-          if (appendmode){
-            //alert('trovati in appendmode:'+things);
-            if (_getup) _items.first = things[0]._id;
-            else _items.last = things[things.length-1]._id;
-            $scope.things.push.apply($scope.things, things);
+      $http.get(url)
+        .success(function (things) {
+          if (things && things.length) {
+            things.sort(function(t1, t2){return (new Date(t1.due_date)).getTime()-(new Date(t2.due_date)).getTime()});
+            if (appendmode){
+              //alert('trovati in appendmode:'+things);
+              if (_getup) _items.first = things[0]._id;
+              else _items.last = things[things.length-1]._id;
+              $scope.things.push.apply($scope.things, things);
+            }
+            else {
+              //alert('trovati:'+things);
+              _items.first = things[0]._id;
+              _items.last = things[things.length-1]._id;
+              $scope.things = things;
+            }
+            //alert('in soldoni il primo:'+JSON.stringify($scope.things[0]));
+            socket.syncUpdates('thing', $scope.things);
           }
-          else {
-            //alert('trovati:'+things);
-            _items.first = things[0]._id;
-            _items.last = things[things.length-1]._id;
-            $scope.things = things;
-          }
-          //alert('in soldoni il primo:'+JSON.stringify($scope.things[0]));
-          socket.syncUpdates('thing', $scope.things);
-        }
-        _loading = false;
-      });
+          _loading = false;
+        })
+        .error(function() {
+          _loading = false;
+        });
     };
 
     loadThings();

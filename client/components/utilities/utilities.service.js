@@ -28,11 +28,11 @@ angular.module('dueAppApp')
     };
 
     var refreshThing = function(thing, next) {
+      alert('passa da qui!');
       if (!thing || !thing._id) return;
-      next = next | angular.noop;
       $http.put('/api/things/'+thing._id, thing)
         .success(function(){
-          next();
+          if (next) next();
         });
     };
 

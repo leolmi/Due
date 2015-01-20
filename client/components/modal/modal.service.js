@@ -117,6 +117,42 @@ angular.module('dueAppApp')
               add.apply(event, args);
             });
           };
+        },
+
+        newList: function(create) {
+          create = create || angular.noop;
+
+          /**
+           * Apre il form modale
+           * @param thing
+           */
+          return function() {
+            var args = Array.prototype.slice.call(arguments),
+              newListModal;
+
+            newListModal = openModal({
+              modal: {
+                dismissable: true,
+                title: 'Nuova Lista',
+                html: '<p>Inserire il nome della nuova lista</p>',
+                template: 'components/list-editor/list-editor.html',
+                list: args[0],
+                buttons: [{
+                  classes: 'btn-success',
+                  text: 'OK',
+                  click: function(e) { newListModal.close(e); }
+                }, {
+                  classes: 'btn-warning',
+                  text: 'Annulla',
+                  click: function(e) { newListModal.dismiss(e); }
+                }]
+              }
+            }, 'modal-standard');
+
+            newListModal.result.then(function(event) {
+              create.apply(event, args);
+            });
+          };
         }
       }
     };

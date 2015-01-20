@@ -2,7 +2,7 @@
 'use strict';
 
 angular.module('dueAppApp')
-  .directive('appFooter', ['$rootScope','Auth', function ($rootScope, Auth) {
+  .directive('appFooter', ['$rootScope','$location','Auth', function ($rootScope, $location, Auth) {
     return {
       restrict: 'E', // E-element, A-attribute, EA-element or attribute
       templateUrl: 'components/footer/footer.html', //url del template html
@@ -12,6 +12,11 @@ angular.module('dueAppApp')
         scope.isAdmin = Auth.isAdmin;
         scope.infos = $rootScope.infos;
         scope.getCurrentUser = Auth.getCurrentUser;
+
+        scope.exit = function() {
+          Auth.logout();
+          $location.path('/login');
+        };
       }
     }
   }]);

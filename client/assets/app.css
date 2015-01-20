@@ -7421,7 +7421,6 @@ button.close {
   margin-right: 10px;
 }
 .editor-toggle {
-  padding: 5px 20px;
   font-size: 24px;
 }
 .editor-toggle > span {
@@ -7899,4 +7898,19 @@ due-item > .list-group-item:hover {
 }
 .navbar-inverse .navbar-toggle .icon-bar {
   background-color: #ff8c00;
+}
+
+.list-editor {
+  margin-top: 40px;
+  border: #333 3px dotted;
+  padding: 12px;
+  border-radius: 24px;
+}
+
+.list-container {
+  padding-top: 71px;
+}
+
+.list-editor > input {
+  border: none;
 }

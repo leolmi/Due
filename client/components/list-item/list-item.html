@@ -1,0 +1,23 @@
+<style scoped>
+  .list-item {
+    position: relative;
+    padding: 6px;
+    font-size: 2em;
+    border-bottom: #ddd 1px solid;
+  }
+  .list-item > button.close{
+    position: absolute;
+    right: -16px;
+  }
+  .list-item > span {
+    position: absolute;
+    top: 8px;
+    right: 4px;
+  }
+</style>
+
+<div class="list-item">
+  <strong>{{index}}. {{item.desc}}</strong>
+  <span class="glyphicon glyphicon-unchecked"></span>
+  <button ng-show="deletable" type="button" class="close" data-ng-click="deleteElement(item)">&times;</button>
+</div>

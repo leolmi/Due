@@ -1,2 +1,50 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
+<div class="container list-container">
+  <div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8 things-container">
+
+      <div class="input-group">
+        <div class="input-group-btn" ng-show="editor_opened">
+          <button type="button" class="btn btn-danger" ng-show="currentList" ng-click="removeList()"><span class="glyphicon glyphicon-remove"></span></button>
+        </div>
+        <!--<input type="text" class="form-control" placeholder="selezionare una lista..." aria-label="..." ng-model="currentList.name" readonly>-->
+        <div class="list-name aslink" ng-click="toggleDropdown($event)">{{currentList.name ? currentList.name : 'scegli una lista'}}</div>
+        <div class="input-group-btn" dropdown is-open="status.isopen">
+          <ul class="dropdown-menu" role="menu" ng-show="status.isopen">
+            <li ng-repeat="list in lists | orderBy:'name'"><a href="" ng-click="setList(list)">{{list.name}}</a></li>
+            <li class="divider" ng-show="lists.length"></li>
+            <li><a href="" ng-click="newList()">Nuova Lista</a></li>
+          </ul>
+        </div>
+        <!--<div class="input-group-btn" dropdown is-open="status.isopen">-->
+          <!--<ul class="dropdown-menu" role="menu" ng-show="status.isopen">-->
+            <!--<li ng-repeat="list in lists | orderBy:'name'"><a href="" ng-click="setList(list)">{{list.name}}</a></li>-->
+            <!--<li class="divider" ng-show="lists.length"></li>-->
+            <!--<li><a href="" ng-click="newList()">Nuova Lista</a></li>-->
+          <!--</ul>-->
+          <!--<button type="button" class="btn btn-default" ng-click="toggleDropdown($event)"><span class="caret"></span></button>-->
+        <!--</div>-->
+      </div>
+      <div ng-show="currentList && currentList.state.length">
+        <list-item ng-repeat="item in currentList.state | orderBy:'name'" data-ng-model="item" deletable="editor_opened" index="$index+1"></list-item>
+      </div>
+      <div class="list-editor" ng-show="editor_opened && currentList">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="nome elemento" aria-label="..." ng-model="new_item.desc">
+          <div class="input-group-btn">
+            <button type="button" class="btn btn-success" ng-click="addListItem()" ng-class="{disabled:!new_item.desc}"><span class="glyphicon glyphicon-plus"></span></button>
+          </div>
+        </div>
+      </div>
+
+
+      <hr>
+      <pre>Lista corrente:{{currentList}}</pre>
+    </div>
+  </div>
+</div>
+
+
+

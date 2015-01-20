@@ -43,11 +43,11 @@ angular.module('dueAppApp')
       return true;
     };
 
-    $scope.clickOnItem = function(item){
-      if ((typeof item.action)=='function') {
-        item.action();
-      }
-    };
+    //$scope.clickOnItem = function(item){
+    //  if ((typeof item.action)=='function') {
+    //    item.action();
+    //  }
+    //};
 
     $scope.search = function(text) {
         $rootScope.searchtext = text;

@@ -121,6 +121,7 @@ angular.module('dueAppApp')
 
             scope.deleteState = function(state){
               _.remove(scope.thing.state, {_id: state._id});
+              alert('passa da [deleteState]');
               Utilities.refreshThing(scope.thing);
             };
 

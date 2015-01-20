@@ -1,5 +1,5 @@
 <footer class="footer">
   <div class="container" ng-show="isLoggedIn()">
-    <p>Little Poor v{{infos.version}} - {{getCurrentUser().name}} <span class="dot">&middot;</span> <a href="/settings">Impostazioni</a><span ng-show="isAdmin()"> <span class="dot">&middot;</span> <a href="/admin">Utenti</a></span> <span class="dot">&middot;</span> <a href="https://twitter.com/@GnaGniGno">NewT</a></p>
+    <p>Little Poor v{{infos.version}} - {{getCurrentUser().name}} <span class="dot">&middot;</span> <a href="/settings">Impostazioni</a><span ng-show="isAdmin()"> <span class="dot">&middot;</span> <a href="/admin">Utenti</a></span> <span class="dot">&middot;</span> <a href="https://twitter.com/@GnaGniGno">NewT</a> <span class="dot">&middot;</span> <span class="glyphicon glyphicon-off aslink" ng-click="exit()"></span></p>
   </div>
 </footer>
