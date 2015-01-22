@@ -20,6 +20,6 @@ var ThingSchema = new Schema({
   value: Number,
   state: [ThingStateSchema],
   active: Boolean
-});
+}, { versionKey: false });
 
 module.exports = mongoose.model('Thing', ThingSchema);

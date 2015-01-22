@@ -8,7 +8,10 @@ angular.module('dueAppApp')
     var _loading = false;
     $scope.status = { isopen: false };
     $scope.lists = [];
-    $scope.new_item = { desc:'' };
+
+    var initNewItem = function() {
+      $scope.new_item = {desc: '', selected:true };
+    }
 
     var loadLists = function() {
       if (_loading) return;
@@ -64,19 +67,33 @@ angular.module('dueAppApp')
 
     $scope.addListItem = function() {
       if (!$scope.new_item.desc || !$scope.currentList) return;
-      $scope.currentList.state.push({desc:$scope.new_item.desc});
-      Utilities.refreshThing($scope.currentList, function() {
-        $scope.new_item.desc = '';
+      $scope.currentList.state.push($scope.new_item);
+      $scope.updateList(function() {
+        initNewItem();
       });
     };
+    $scope.insertItem = function(e){
+      if (e.keyCode==13)
+        $scope.addListItem();
+    };
+
     $scope.toggleEditor = function() {
       $scope.editor_opened=!$scope.editor_opened;
+      if ($scope.editor_opened)
+        $timeout(function() {
+          $("#list-editor-input").focus();
+        });
     };
 
     $scope.deleteListItem = function(state) {
       _.remove($scope.currentList.state, {_id: state._id});
-      Utilities.refreshThing($scope.currentList);
+      $scope.updateList();
     };
 
+    $scope.updateList = function(next) {
+      Utilities.refreshThing($scope.currentList, next);
+    };
+
+    initNewItem();
     loadLists();
   }]);

@@ -73,10 +73,12 @@
         <list-item ng-hide="editor_opened" ng-repeat="item in currentList.state | filter:{selected:true} | orderBy:'desc'" data-ng-model="item" deletable="editor_opened" index="$index+1"></list-item>
       </div>
       <div class="list-editor" ng-show="editor_opened && currentList">
-        <input type="text" ng-model="new_item.desc">
+        <input type="text" id="list-editor-input" ng-model="new_item.desc" ng-keyup="insertItem($event)">
         <span class="glyphicon glyphicon-plus aslink" ng-show="editor_opened && currentList" ng-click="addListItem()"></span>
       </div>
     </div>
+    <!--<br>-->
+    <!--<pre>Lista: {{currentList}}</pre>-->
   </div>
 </div>
 

@@ -7874,6 +7874,7 @@ due-item > .list-group-item:hover {
   text-align: center;
   width: 100%;
   font-size: 4em;
+  min-height: 300px;
 }
 .main-menu > a {
   margin: 24px;
@@ -7909,6 +7910,7 @@ due-item > .list-group-item:hover {
 
 .list-container {
   padding-top: 71px;
+  min-height: 300px;
 }
 
 .list-editor > input {

@@ -14,6 +14,7 @@ angular.module('dueAppApp')
 
         scope.toggleState = function(){
           scope.item.selected = !scope.item.selected;
+          scope.$parent.updateList();
         };
       }
     }

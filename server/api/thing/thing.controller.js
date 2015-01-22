@@ -139,14 +139,17 @@ exports.update = function(req, res) {
   console.log('req.params:'+JSON.stringify(req.params));
   console.log('req.body:'+JSON.stringify(req.body));
   if(req.body._id) { delete req.body._id; }
+  if(req.body.__v) { delete req.body.__v; }
   Thing.findById(req.params.id, function (err, thing) {
-    if (err) { return handleError(res, err); }
+    if (err) { console.log('1. err='+JSON.stringify(err)); return handleError(res, err); }
     if(!thing) { return res.send(404); }
     var updated = _.merge(thing, req.body, function(a,b) {
       return _.isArray(a) ? b : undefined;
     });
+    //if (updated.__v) updated.__v--;
+    console.log('updated='+JSON.stringify(updated));
     updated.save(function (err) {
-      if (err) { return handleError(res, err); }
+      if (err) { console.log('2. err='+JSON.stringify(err)); return handleError(res, err); }
       return res.json(202, thing);
     });
   });
