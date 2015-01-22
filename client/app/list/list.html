@@ -1,6 +1,10 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
 <style>
+  .list-items > div.alert {
+    margin-top: 50px;
+    text-align: center;
+  }
   .list-name {
     font-weight: bold;
     font-size: 2.2em;
@@ -68,9 +72,10 @@
           </ul>
         </div>
       </div>
-      <div ng-show="currentList && currentList.state.length">
+      <div ng-show="currentList && currentList.state.length" class="list-items">
         <list-item ng-show="editor_opened" ng-repeat="item in currentList.state | orderBy:'desc'" data-ng-model="item" deletable="editor_opened" index="$index+1"></list-item>
-        <list-item ng-hide="editor_opened" ng-repeat="item in currentList.state | filter:{selected:true} | orderBy:'desc'" data-ng-model="item" deletable="editor_opened" index="$index+1"></list-item>
+        <list-item ng-hide="editor_opened" ng-repeat="item in filtered = (currentList.state | filter:{selected:true} | orderBy:'desc')" data-ng-model="item" deletable="editor_opened" index="$index+1"></list-item>
+        <div class="alert alert-success" ng-show="!editor_opened && !filtered.length && currentList.state.length">Lista Copletata!</div>
       </div>
       <div class="list-editor" ng-show="editor_opened && currentList">
         <input type="text" id="list-editor-input" ng-model="new_item.desc" ng-keyup="insertItem($event)">
