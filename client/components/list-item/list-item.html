@@ -4,15 +4,16 @@
     padding: 6px;
     font-size: 2em;
     border-bottom: #ddd 1px solid;
+    text-transform: capitalize;
   }
   .list-item > span.selector {
     position: absolute;
-    top: 8px;
+    top: 13px;
     right: 12px;
   }
   .list-item > span.glyphicon-remove-circle {
     position: absolute;
-    top: 8px;
+    top: 13px;
     right: -44px;
   }
   .list-item > span:hover {
@@ -24,8 +25,8 @@
 </style>
 
 <div class="list-item">
-  <strong>{{index}}. {{item.desc}}</strong>
+  <small><small>{{index}}.</small></small> <strong>{{item.desc}}</strong>
   <span class="glyphicon aslink selector" ng-class="{'glyphicon-ok':item.selected, 'glyphicon-record':!item.selected }" data-ng-click="toggleState()"></span>
-  <span class="glyphicon glyphicon-remove-circle aslink" ng-show="deletable" data-ng-click="deleteElement(item)"></span>
+  <span class ="glyphicon glyphicon-remove-circle aslink" ng-show="deletable" data-ng-click="deleteElement(item)"></span>
   <!--<button ng-show="deletable" type="button" class="close" data-ng-click="deleteElement(item)">&times;</button>-->
 </div>

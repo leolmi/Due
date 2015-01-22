@@ -21,6 +21,8 @@ angular.module('dueAppApp')
           $scope.lists = lists;
           socket.syncUpdates('thing', $scope.lists);
           _loading = false;
+          if ($scope.lists.length)
+            $scope.currentList = $scope.lists[0];
         })
         .error(function(){
           _loading = false;
