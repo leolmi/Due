@@ -54,7 +54,7 @@ angular.module('dueAppApp')
             var modalPay = Modal.confirm.pay(getInfoForPay(), function(state) {
               scope.thing.state.push(state);
               refreshItemClass();
-              $http.put('/api/things/'+scope.thing._id, scope.thing);
+              Utilities.refreshThing(scope.thing);
             });
 
             var modalDelete = Modal.confirm.delete(function(thing) {

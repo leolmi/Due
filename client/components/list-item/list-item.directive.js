@@ -14,6 +14,7 @@ angular.module('dueAppApp')
 
         scope.toggleState = function(){
           scope.item.selected = !scope.item.selected;
+          //$http.put('/api/things/'+scope.list._id, scope.list);
           scope.$parent.updateList();
         };
       }

@@ -11,10 +11,6 @@ angular.module('dueAppApp')
       path: '/socket.io-client'
     });
 
-    //var ioSocket = io('https://nameless-everglades-6768.herokuapp.com:8000');
-
-    //var ioSocket = io.connect('/');
-
     var socket = socketFactory({
       ioSocket: ioSocket
     });
@@ -67,14 +63,14 @@ angular.module('dueAppApp')
         /**
          * Syncs update items on 'model:update'
          */
-        socket.on(modelName + ':update', function (item) {
-          var oldItem = _.find(array, {_id: item._id});
-          if (!oldItem) return;
-
-          var index = array.indexOf(oldItem);
-          array.splice(index, 1, item);
-          cb('updated', item, array);
-        });
+        //socket.on(modelName + ':update', function (item) {
+        //  var oldItem = _.find(array, {_id: item._id});
+        //  if (!oldItem) return;
+        //  var event = 'updated';
+        //  var index = array.indexOf(oldItem);
+        //  array.splice(index, 1, item);
+        //  cb(event, item, array);
+        //});
       },
 
       /**
