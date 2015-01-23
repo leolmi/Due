@@ -8,6 +8,10 @@ angular.module('dueAppApp')
     },{
       icon: 'glyphicon-shopping-cart',
       link: '/list'
+    },
+    {
+      icon: 'glyphicon glyphicon-calendar',
+      link: '/scheduler'
     }];
 
     Utilities.useInfos(function(infos){
