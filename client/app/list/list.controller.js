@@ -4,15 +4,18 @@
 'use strict';
 
 angular.module('dueAppApp')
-  .controller('ListCtrl', ['$scope','$http','$timeout','socket','Modal','Utilities', function ($scope, $http, $timeout, socket, Modal, Utilities) {
+  .controller('ListCtrl', ['$scope','$http','$timeout','socket','Action','Modal','Utilities', function ($scope, $http, $timeout, socket, Action, Modal, Utilities) {
     var _loading = false;
     $scope.status = { isopen: false };
     $scope.lists = [];
 
+    Action.register('Seleziona Tutti','/list','navbar','select-all');
+    Action.register('Imposta come Default','/list','navbar','set-default');
+    Action.register('Elimina Lista','/list','navbar','delete');
+
     var initNewItem = function() {
       $scope.new_item = {desc: '', selected:true };
-    }
-
+    };
     var loadLists = function() {
       if (_loading) return;
       _loading = true;
@@ -21,12 +24,20 @@ angular.module('dueAppApp')
           $scope.lists = lists;
           socket.syncUpdates('thing', $scope.lists);
           _loading = false;
-          if ($scope.lists.length)
-            $scope.currentList = $scope.lists[0];
+          $scope.currentList = getDefaultList();
         })
         .error(function(){
           _loading = false;
         });
+    };
+
+    var getDefaultList = function() {
+      var result = $.grep($scope.lists, function(l) { return l.active; });
+      if (result && result.length)
+        return result[0];
+      if ($scope.lists.length)
+        return $scope.lists[0];
+      return undefined;
     };
 
     var modalCreate = Modal.confirm.newList(function(newlist) {
@@ -43,6 +54,36 @@ angular.module('dueAppApp')
         .success(function() {
           $scope.currentList = undefined;
         });
+    });
+
+    $scope.selectAll = function() {
+      if (!$scope.currentList) return;
+      $scope.currentList.state.forEach(function(s) {
+          s.selected = true;
+        });
+      $scope.updateList();
+    };
+
+    $scope.$on('/list:select-all', function () {
+      $scope.selectAll();
+    });
+
+    $scope.$on('/list:set-default', function () {
+      $scope.lists.forEach(function (l) {
+        if (l.active && l._id != $scope.currentList._id) {
+          l.active = false;
+          Utilities.refreshThing(l);
+        }
+      });
+      if ($scope.currentList && !$scope.currentList.active) {
+        $scope.currentList.active = true;
+        $scope.updateList();
+      }
+    });
+
+    $scope.$on('/list:delete', function () {
+      if (!$scope.currentList) return;
+      modalRemove($scope.currentList.name, $scope.currentList);
     });
 
     $scope.toggleDropdown = function($event) {
@@ -63,9 +104,6 @@ angular.module('dueAppApp')
       modalCreate({ name: '', type: 'list', state:[] });
     };
 
-    $scope.removeList = function(){
-      modalRemove($scope.currentList.name, $scope.currentList);
-    };
 
     $scope.addListItem = function() {
       if (!$scope.new_item.desc || !$scope.currentList) return;
@@ -95,6 +133,7 @@ angular.module('dueAppApp')
     $scope.updateList = function(next) {
       Utilities.refreshThing($scope.currentList, next);
     };
+
 
     initNewItem();
     loadLists();

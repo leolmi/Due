@@ -1,40 +1,20 @@
 'use strict';
 
 angular.module('dueAppApp')
-  .controller('NavbarCtrl', function ($scope, $rootScope, $location, Auth, Modal) {
+  .controller('NavbarCtrl', function ($scope, $rootScope, $location, Auth, Action, Modal) {
 
-    $scope.openModal = function() {
-      var e ={ name:'Gigio' };
-      $scope.delete('Gigio', e);
-    };
-
-    $scope.delete = Modal.confirm.delete(function(obj) {
-      alert('Elimina l\'oggetto: '+JSON.stringify(obj));
-    });
-
-    $scope.onPath = function(path) {
-      return ($location.path() === path);
-    };
-
-
-    //$scope.menu = [{
-    //  'glyphicon': 'glyphicon-tasks',
-    //  'link': '/due',
-    //  'visible': $scope.onPath('/due')
-    //},{
-    //  'glyphicon': 'glyphicon-shopping-cart',
-    //  'link': '/list',
-    //  'visible': $scope.onPath('/list')
-    //},{
-    //  'title': 'Utenti',
-    //  'link': '/admin',
-    //  'visible': Auth.isAdmin
-    //}];
+    // Inserisc tutti i comandi registrati dai controller
+    $scope.menu = Action.actions(function(a) { return a.target=='navbar';});
 
     $scope.isCollapsed = true;
     $scope.isLoggedIn = Auth.isLoggedIn;
     $scope.isAdmin = Auth.isAdmin;
     $scope.getCurrentUser = Auth.getCurrentUser;
+    $scope.toggleEditor = $scope.$parent.toggleEditor;
+
+    $scope.onPath = function(path) {
+      return ($location.path() === path);
+    };
 
     $scope.isVisible = function(item) {
       if ((typeof item.visible)=='function') {
@@ -43,11 +23,14 @@ angular.module('dueAppApp')
       return true;
     };
 
-    //$scope.clickOnItem = function(item){
-    //  if ((typeof item.action)=='function') {
-    //    item.action();
-    //  }
-    //};
+    $scope.toggle = function() {
+      $scope.isCollapsed = !$scope.isCollapsed;
+    };
+
+    $scope.execAction = function(item) {
+      $scope.toggle();
+      Action.send(item);
+    };
 
     $scope.search = function(text) {
         $rootScope.searchtext = text;
@@ -61,6 +44,4 @@ angular.module('dueAppApp')
     $scope.isActive = function(route) {
       return route === $location.path();
     };
-
-    $scope.toggleEditor = $scope.$parent.toggleEditor;
   });
