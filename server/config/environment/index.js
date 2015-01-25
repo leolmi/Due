@@ -14,7 +14,8 @@ function requiredProcessEnv(name) {
 // ============================================
 var all = {
   env: process.env.NODE_ENV,
-
+  // Mail Server
+  mail: process.env.MAIL_ENV,
   // Root path of server
   root: path.normalize(__dirname + '/../../..'),
 

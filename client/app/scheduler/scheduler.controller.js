@@ -4,6 +4,13 @@
 angular.module('dueAppApp')
   .controller('SchedulerCtrl', ['$scope','$log','$http','Utilities', function ($scope,$log,$http,Utilities) {
     var _loading = false;
+    $scope.mail = {
+      from: 'webapps.leo@gmail.com',
+      to:'leo.olmi@gmail.com',
+      subject:'Messaggio di test',
+      text:'test di messaggio da app: due'
+    };
+
 
     var loadReminds = function() {
       $log.log('Richiede i reminds (loading='+(_loading?'vero':'falso')+')');
@@ -25,6 +32,16 @@ angular.module('dueAppApp')
     $scope.$on('$destroy', function () {
       Utilities.unsync();
     });
+
+    $scope.sendMail = function() {
+      $http.post('/api/mail', $scope.mail)
+        .success(function(){
+          alert('Messaggio inviato correttamente');
+        })
+        .error(function(err){
+          alert('Impossibile inviare il messaggio: '+err);
+        });
+    };
 
     loadReminds();
   }]);

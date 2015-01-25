@@ -14,7 +14,7 @@ module.exports = {
             8080,
 
   // Mail Server
-  mail: prcess.env.MAIL_ENV,
+  mail: process.env.MAIL_ENV,
 
   // MongoDB connection options
   mongo: {
