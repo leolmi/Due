@@ -25,7 +25,7 @@ angular.module('dueAppApp')
       }
     }
   })
-  .controller('DueCtrl', function ($scope, $http, $timeout, $window, socket, Utilities) {
+  .controller('DueCtrl', function ($scope, $http, $log, $timeout, $window, Utilities) {
     var _loading = false;
     var _getup = false;
     var _items = { first:undefined, last:undefined };
@@ -56,7 +56,8 @@ angular.module('dueAppApp')
               $scope.things = things;
             }
             //alert('in soldoni il primo:'+JSON.stringify($scope.things[0]));
-            socket.syncUpdates('thing', $scope.things);
+            Utilities.sync($scope.things);
+            $log.log('Finita la richiesta, trovati '+$scope.things.length+' due');
           }
           _loading = false;
         })
@@ -76,7 +77,7 @@ angular.module('dueAppApp')
     };
 
     $scope.$on('$destroy', function () {
-      socket.unsyncUpdates('thing');
+      Utilities.unsync();
     });
 
     var checkDueHeaderStyle = function() {
@@ -119,10 +120,7 @@ angular.module('dueAppApp')
         $scope.createNewThing(true);
     };
 
-
     $scope.createNewThing();
-
-
 
     refreshContentStyle();
 

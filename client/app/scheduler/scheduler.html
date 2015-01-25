@@ -1,6 +1,16 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
-<br>
-<br>
-<br>
-<p>In costruzione...</p>
+<header class="remaind-header">
+  <div class="item-editor container" ng-show="editor_opened">
+    <remaind-editor ng-model="selectedRemaind" eopened="editor_opened" data-ng-show="editor_opened"></remaind-editor>
+  </div>
+</header>
+
+<div class="container" ng-style="content_style">
+  <div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8">
+      <remaind-item data-ng-repeat="remaind in reminds | orderBy:'name'" data-ng-click="selectRemaind(remaind)" data-ng-model="remaind" active="selectedRemaind._id==remaind._id"></remaind-item>
+    </div>
+  </div>
+</div>

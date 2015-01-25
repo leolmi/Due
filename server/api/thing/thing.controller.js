@@ -45,8 +45,8 @@ var getDueThings = function(params, next) {
   });
 };
 
-var getListThings = function(params, next) {
-  var filter = {owner:params.user_id, type:'list'};
+var getTypeThings = function(params, next) {
+  var filter = {owner:params.user_id, type:params.element_type};
   Thing.find(filter).sort({name: 'asc'}).exec(function (err, things) {
     if(err) next(err);
     else next(undefined, things);
@@ -54,7 +54,8 @@ var getListThings = function(params, next) {
 };
 
 var getThings = function(params, next) {
-  if (params.element_type=='list') { return getListThings(params, next); }
+  console.log('tipologia richiesta: '+params.element_type);
+  if (params.element_type) { return getTypeThings(params, next); }
   else { return getDueThings(params, next); }
 };
 
@@ -91,17 +92,19 @@ exports.index = function(req, res) {
     if (err) return handleError(res, err);
     things.push.apply(things, things_next);
     //console.log('things next:'+things);
-    if (params.element_type=='list') {
-      return res.json(200, things);
-    }
-    else {
+    if (!params.element_type) {
       params.prev = true;
       getThings(params, function (err, things_prev) {
         if (err) return handleError(res, err);
         things.push.apply(things, things_prev);
         //console.log('things next e prev:'+things);
+        console.log('trovati '+things.length+' elementi');
         return res.json(200, things);
       });
+    }
+    else {
+      console.log('trovati '+things.length+' elementi');
+      return res.json(200, things);
     }
   });
 };

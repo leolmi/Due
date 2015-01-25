@@ -13,6 +13,9 @@ module.exports = {
             process.env.PORT ||
             8080,
 
+  // Mail Server
+  mail: prcess.env.MAIL_ENV,
+
   // MongoDB connection options
   mongo: {
     uri:    process.env.MONGOLAB_URI ||

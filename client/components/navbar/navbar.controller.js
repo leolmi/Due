@@ -1,10 +1,9 @@
 'use strict';
 
 angular.module('dueAppApp')
-  .controller('NavbarCtrl', function ($scope, $rootScope, $location, Auth, Action, Modal) {
-
+  .controller('NavbarCtrl', function ($scope, $rootScope, $location, Auth, Actions) {
     // Inserisc tutti i comandi registrati dai controller
-    $scope.menu = Action.actions(function(a) { return a.target=='navbar';});
+    $scope.menu = Actions.get(function(a) { return a.target=='navbar';});
 
     $scope.isCollapsed = true;
     $scope.isLoggedIn = Auth.isLoggedIn;
@@ -29,7 +28,7 @@ angular.module('dueAppApp')
 
     $scope.execAction = function(item) {
       $scope.toggle();
-      Action.send(item);
+      Actions.send(item);
     };
 
     $scope.search = function(text) {

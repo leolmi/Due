@@ -11,6 +11,12 @@ var ThingStateSchema = new Schema({
   selected: Boolean
 });
 
+var ThingRemindSchema = new Schema({
+  date: Date,
+  value: String,
+  repeat: String
+});
+
 var ThingSchema = new Schema({
   owner: String,
   type: String,
@@ -19,6 +25,7 @@ var ThingSchema = new Schema({
   due_date: { type: Date, default: Date.now },
   value: Number,
   state: [ThingStateSchema],
+  reminds: [ThingRemindSchema],
   active: Boolean
 }, { versionKey: false });
 

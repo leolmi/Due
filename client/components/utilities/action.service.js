@@ -4,7 +4,7 @@
 'use strict';
 
 angular.module('dueAppApp')
-  .factory('Action', ['$rootScope', function($rootScope) {
+  .factory('Actions', ['$rootScope', function($rootScope) {
     var _actions = [];
 
     /**
@@ -49,6 +49,6 @@ angular.module('dueAppApp')
     return {
       send: send,
       register: register,
-      actions: getActions
+      get: getActions
     }
   }]);

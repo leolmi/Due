@@ -4,7 +4,18 @@
 'use strict';
 
 angular.module('dueAppApp')
-  .factory('Utilities', ['$http', function($http) {
+  .factory('Utilities', ['$http','$log','socket', function($http,$log,socket) {
+    var syncUpdates = function(items) {
+      unsyncUpdates();
+      $log.log('Connette al socket');
+      socket.syncUpdates('thing', items);
+    };
+
+    var unsyncUpdates = function() {
+      $log.log('Sconnette dal socket');
+      socket.unsyncUpdates('thing');
+    };
+
     var getDateStr = function (d) {
       if (d instanceof Date)
         return strFill(d.getDate())+'/'+strFill(d.getMonth()+1)+'/'+d.getFullYear();
@@ -51,6 +62,8 @@ angular.module('dueAppApp')
     }
 
     return {
+      sync: syncUpdates,
+      unsync: unsyncUpdates,
       // Restituisce la data in formato stringa
       getDateStr: getDateStr,
       // aggiunge la stringa tenuto conto del separatore

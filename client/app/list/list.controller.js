@@ -4,30 +4,33 @@
 'use strict';
 
 angular.module('dueAppApp')
-  .controller('ListCtrl', ['$scope','$http','$timeout','socket','Action','Modal','Utilities', function ($scope, $http, $timeout, socket, Action, Modal, Utilities) {
+  .controller('ListCtrl', ['$scope','$http','$timeout','$log','Actions','Modal','Utilities', function ($scope, $http, $timeout, $log, Actions, Modal, Utilities) {
     var _loading = false;
     $scope.status = { isopen: false };
     $scope.lists = [];
 
-    Action.register('Seleziona Tutti','/list','navbar','select-all');
-    Action.register('Imposta come Default','/list','navbar','set-default');
-    Action.register('Elimina Lista','/list','navbar','delete');
+    Actions.register('Seleziona Tutti','/list','navbar','select-all');
+    Actions.register('Imposta come Default','/list','navbar','set-default');
+    Actions.register('Elimina Lista','/list','navbar','delete');
 
     var initNewItem = function() {
       $scope.new_item = {desc: '', selected:true };
     };
     var loadLists = function() {
+      $log.log('Richiede le liste (loading='+(_loading?'vero':'falso')+')');
       if (_loading) return;
       _loading = true;
       $http.get('/api/things', { params: { 'type':'list'} } )
         .success(function (lists){
           $scope.lists = lists;
-          socket.syncUpdates('thing', $scope.lists);
+          Utilities.sync($scope.lists);
           _loading = false;
+          $log.log('Finita la richiesta, trovate '+$scope.lists.length+' liste');
           $scope.currentList = getDefaultList();
         })
-        .error(function(){
+        .error(function(err){
           _loading = false;
+          alert('Errori: '+err);
         });
     };
 
@@ -93,7 +96,7 @@ angular.module('dueAppApp')
     };
 
     $scope.$on('$destroy', function () {
-      socket.unsyncUpdates('thing');
+      Utilities.unsync();
     });
 
     $scope.setList = function(list) {

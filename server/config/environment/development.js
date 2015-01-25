@@ -8,5 +8,7 @@ module.exports = {
     uri: 'mongodb://localhost/dueapp-dev'
   },
 
+  mail: process.env.MAIL_PSW,
+
   seedDB: true
 };
