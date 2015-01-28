@@ -4,10 +4,14 @@ angular.module('dueAppApp')
   .controller('SettingsCtrl', function ($scope, User, Auth) {
     $scope.errors = {};
 
+    $scope.user = Auth.getCurrentUser();
+
+    $scope.updateUser = User.update();
+
     $scope.changePassword = function(form) {
       $scope.submitted = true;
       if(form.$valid) {
-        Auth.changePassword( $scope.user.oldPassword, $scope.user.newPassword )
+        Auth.changePassword($scope.user.oldPassword, $scope.user.newPassword)
         .then( function() {
           $scope.message = 'Password successfully changed.';
         })

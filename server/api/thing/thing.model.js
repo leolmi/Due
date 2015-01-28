@@ -26,7 +26,22 @@ var ThingSchema = new Schema({
   value: Number,
   state: [ThingStateSchema],
   reminds: [ThingRemindSchema],
+  paid: Boolean,
   active: Boolean
 }, { versionKey: false });
+
+/**
+ * Se vero il pagamento è stato saldato
+ * @returns {boolean}
+ */
+//ThingSchema.methods.paid = function () {
+//  var tot = 0;
+//  if (this.state && this.state.length) {
+//    this.state.forEach(function (s) {
+//        tot += parseFloat(s.value);
+//    });
+//  }
+//  return (tot>=this.value);
+//};
 
 module.exports = mongoose.model('Thing', ThingSchema);

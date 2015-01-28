@@ -7810,9 +7810,7 @@ due-item > .list-group-item:hover {
   color: #ff8c00;
 }
 .thing-today {
-  padding-top: 20px;
   text-align: center;
-  margin: 0 0 20px 0;
   font-size: xx-large;
 }
 .thing-today-bg {
@@ -7822,6 +7820,9 @@ due-item > .list-group-item:hover {
   height: 45px;
   top: 20px;
   left: 0;
+}
+.alert-today {
+  margin-top: 16px;
 }
 .list-group-item {
   overflow: hidden;

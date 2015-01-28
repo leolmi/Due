@@ -13,19 +13,50 @@ var _ = require('lodash');
 var Thing = require('./thing.model');
 var _STEP_COUNT = 10;
 
+var getParams = function(req) {
+  //console.log('req.body:'+JSON.stringify(req.body));
+  //console.log('req.params:'+JSON.stringify(req.params));
+  //console.log('req.query:'+JSON.stringify(req.query));
+  return {
+    user_id: req.user._id,
+    step: req.params.step ? req.params.step : _STEP_COUNT,
+    element_id: req.params.id,
+    type: req.params.type || req.query.type,
+    prevClosed: (req.user.settings && req.user.settings.length) ? req.user.settings[0].prevClosed : false,
+    prev: (req.params.prev && req.params.prev.toString()=='true') ? true : false
+  };
+};
 
+/**
+ * Restituisce i pagamenti:
+ * parametri:
+ *   user_id:    identificativo dell'utente che effettua la richiesta
+ *   type:       identifica il tipo di elementi richiesti
+ *   step:       numero di elementi richiesti ad ogni step (sia nel passato che nel futuro)
+ *   prevClosed: se vero considera anche quelli saldati (altrimenti li nasconde)
+ *   prev:       identifica la direzione in cui è richiesto lo step di elementi
+ *   element_id: elemento di riferimento per determinare i successivi nella direzione indicata da 'prev'
+ *
+ * @param params
+ * @param next
+ */
 var getDueThings = function(params, next) {
   var now = new Date().getTime();
   //console.log('getThings - params.prev='+params.prev);
   var where = params.prev ? "this.due_date.getTime() < "+now : "this.due_date.getTime() >= "+now;
-  where += ' && !this.type';
+  where += ' && !this.type';  //<-- identifica i pagamenti
+  if (params.prev && !params.prevClosed) where += ' && !this.paid';
+  //console.log('WHERE filter='+where);
   var filter = {owner:params.user_id, $where: where};
   var sort_type = params.prev ? 'desc' : 'asc';
 
   //console.log('filter:'+JSON.stringify(filter)+'  sort:'+sort_type);
   Thing.find(filter).sort({due_date: sort_type}).exec(function (err, things) {
     //console.log('fatto:'+err);
-    if(err) next(err);
+    if(err) {
+      console.log('[getDueThings] - ERRORE1: '+JSON.stringify(err));
+      next(err);
+    }
     else {
       //console.log('trovati: '+things.length+' elementi');
       var result = undefined;
@@ -46,7 +77,7 @@ var getDueThings = function(params, next) {
 };
 
 var getTypeThings = function(params, next) {
-  var filter = {owner:params.user_id, type:params.element_type};
+  var filter = {owner:params.user_id, type:params.type};
   Thing.find(filter).sort({name: 'asc'}).exec(function (err, things) {
     if(err) next(err);
     else next(undefined, things);
@@ -54,56 +85,51 @@ var getTypeThings = function(params, next) {
 };
 
 var getThings = function(params, next) {
-  console.log('tipologia richiesta: '+params.element_type);
-  if (params.element_type) { return getTypeThings(params, next); }
+  //console.log('tipologia richiesta: '+params.type);
+  if (params.type) { return getTypeThings(params, next); }
   else { return getDueThings(params, next); }
 };
 
 var getIndexOf = function(array, id) {
   for(var i=0, max=array.length; i < max; i++) {
-    //console.log('array[i]: '+array[i]._id+'      id:'+id);
-    if(array[i]._id == id) {
+    if(array[i]._id == id)
       return i;
-      break;
-    }
   }
-}
-
-
-var getParams = function(req) {
-  console.log('req.body:'+JSON.stringify(req.body));
-  console.log('req.params:'+JSON.stringify(req.params));
-  console.log('req.query:'+JSON.stringify(req.query));
-  return {
-    user_id: req.user._id,
-    step: req.params.step ? req.params.step : _STEP_COUNT,
-    element_id: req.params.id,
-    element_type: req.params.type || req.query.type,
-    prev: (req.params.prev && req.params.prev.toString()=='true') ? true : false
-  };
 };
+
+var checkIsPaid = function(thing) {
+  var tot = 0;
+  if (thing.state && thing.state.length) {
+    thing.state.forEach(function (s) {
+        tot += parseFloat(s.value);
+    });
+  }
+  thing.paid = (tot>=thing.value);
+};
+
+
 
 // Get list of things
 exports.index = function(req, res) {
   var things = [];
   var params = getParams(req);
-  console.log('params:'+JSON.stringify(params));
+  //console.log('params:'+JSON.stringify(params));
   getThings(params, function(err, things_next) {
     if (err) return handleError(res, err);
     things.push.apply(things, things_next);
     //console.log('things next:'+things);
-    if (!params.element_type) {
+    if (!params.type) {
       params.prev = true;
       getThings(params, function (err, things_prev) {
         if (err) return handleError(res, err);
         things.push.apply(things, things_prev);
         //console.log('things next e prev:'+things);
-        console.log('trovati '+things.length+' elementi');
+        //console.log('trovati '+things.length+' elementi');
         return res.json(200, things);
       });
     }
     else {
-      console.log('trovati '+things.length+' elementi');
+      //console.log('trovati '+things.length+' elementi');
       return res.json(200, things);
     }
   });
@@ -129,7 +155,7 @@ exports.show = function(req, res) {
 // Creates a new thing in the DB.
 exports.create = function(req, res) {
   var uid = req.user._id;
-  console.log('[create] - ID utente:'+uid);
+  //console.log('[create] - ID utente:'+uid);
   req.body.owner = uid;
   Thing.create(req.body, function(err, thing) {
     if(err) { return handleError(res, err); }
@@ -139,8 +165,8 @@ exports.create = function(req, res) {
 
 // Updates an existing thing in the DB.
 exports.update = function(req, res) {
-  console.log('req.params:'+JSON.stringify(req.params));
-  console.log('req.body:'+JSON.stringify(req.body));
+  //console.log('req.params:'+JSON.stringify(req.params));
+  //console.log('req.body:'+JSON.stringify(req.body));
   if(req.body._id) { delete req.body._id; }
   if(req.body.__v) { delete req.body.__v; }
   Thing.findById(req.params.id, function (err, thing) {
@@ -149,8 +175,9 @@ exports.update = function(req, res) {
     var updated = _.merge(thing, req.body, function(a,b) {
       return _.isArray(a) ? b : undefined;
     });
+    checkIsPaid(updated);
     //if (updated.__v) updated.__v--;
-    console.log('updated='+JSON.stringify(updated));
+    //console.log('updated='+JSON.stringify(updated));
     updated.save(function (err) {
       if (err) { console.log('2. err='+JSON.stringify(err)); return handleError(res, err); }
       return res.json(202, thing);
@@ -167,6 +194,21 @@ exports.destroy = function(req, res) {
       if(err) { return handleError(res, err); }
       return res.send(204);
     });
+  });
+};
+
+exports.expired = function(req, res) {
+  var params = getParams(req);
+  var now = new Date().getTime();
+  var where = 'this.due_date.getTime() <= '+now+' && !this.type && !this.paid';
+  var filter = {owner:params.user_id, $where: where};
+
+  //console.log('expired request: '+JSON.stringify(filter));
+
+  Thing.find(filter).exec(function(err, things) {
+    if (err) return handleError(res, err);
+    console.log('trovati expired: '+things.length);
+    return res.json(200, things);
   });
 };
 

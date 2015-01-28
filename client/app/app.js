@@ -59,7 +59,7 @@ angular.module('dueAppApp', [
   .run(function ($rootScope, $location, Auth, Utilities) {
     $rootScope.searchtext = '';
 
-    Utilities.useInfos(function(infos){
+    Utilities.useInfos(function(err, infos){
       $rootScope.infos = infos;
     });
 

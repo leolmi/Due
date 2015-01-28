@@ -6,7 +6,7 @@
 // You will need to set these on the server you deploy to.
 
 module.exports = {
-  DOMAIN:           'http://localhost:9000',
+  DOMAIN:           'http://localhost:7000',
   SESSION_SECRET:   'dueapp-secret',
 
   FACEBOOK_ID:      'app-id',

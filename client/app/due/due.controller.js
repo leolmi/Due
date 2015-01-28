@@ -120,10 +120,6 @@ angular.module('dueAppApp')
         $scope.createNewThing(true);
     };
 
-    $scope.createNewThing();
-
-    refreshContentStyle();
-
     $scope.getToday = function() {
       return Utilities.getDateStr(new Date());
     };
@@ -133,4 +129,13 @@ angular.module('dueAppApp')
       _getup = up;
       loadThings();
     };
+
+    $scope.calcTotalToPay = function(things){
+      return Utilities.calcTotalToPay(things);
+    };
+
+
+    $scope.createNewThing();
+
+    refreshContentStyle();
   });

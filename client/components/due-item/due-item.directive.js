@@ -80,24 +80,15 @@ angular.module('dueAppApp')
             };
 
             scope.isPaid = function() {
-              if (!scope.thing.state || !scope.thing.state.length) return false;
-              var paid_val = scope.getPaidValue();
-              return paid_val>=scope.thing.value;
+              return Utilities.isPaid(scope.thing);
             };
 
-            scope.getToPaidValue = function() {
-              var paid_val = scope.getPaidValue();
-              return (paid_val<scope.thing.value) ? scope.thing.value-paid_val : 0;
+            scope.getToPayValue = function() {
+              return Utilities.getToPayValue(scope.thing);
             };
 
             scope.getPaidValue = function() {
-              var paid_val = 0;
-              if (scope.thing && scope.thing.state && scope.thing.state.length) {
-                scope.thing.state.forEach(function (s) {
-                  paid_val += s.value;
-                });
-              }
-              return paid_val;
+              return Utilities.getPaidValue(scope.thing);
             };
 
             scope.getDaysToDue = function() {
@@ -111,7 +102,7 @@ angular.module('dueAppApp')
             };
 
             scope.pay = function() {
-              var state = {type:'', desc:'', date:(new Date()).getTime(), value:scope.getToPaidValue()};
+              var state = {type:'', desc:'', date:(new Date()).getTime(), value:scope.getToPayValue()};
               modalPay(state);
             };
 

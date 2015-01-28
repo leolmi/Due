@@ -1,5 +1,9 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
-
+<style>
+  .today-state {
+    text-align: center;
+  }
+</style>
 <header class="due-header">
   <div class="item-editor container" ng-show="editor_opened">
     <due-editor ng-model="selectedThing" eopened="editor_opened" data-ng-show="editor_opened"></due-editor>
@@ -7,6 +11,7 @@
 </header>
 
 <div class="container" ng-style="content_style" infinite-scroll="loadMore(false)" infinite-scroll-up="loadMore(true)">
+  <!-- PASSATE -->
   <div class="row">
     <div class="col-sm-2"></div>
     <div class="col-sm-8 things-container">
@@ -14,12 +19,13 @@
       <due-item data-ng-repeat="thing in things | oldThings | filter:searchtext | orderBy:'due_date'" data-ng-click="selectThing(thing)" data-ng-model="thing" active="selectedThing._id==thing._id"></due-item>
     </div>
   </div>
-  <div class="row">
-    <div class="col-sm-12">
-      <div class="thing-today">{{getToday()}}</div>
-      <div class="thing-today-bg"></div>
-    </div>
+  <!-- OGGI -->
+  <div class="alert alert-today centered" ng-class="{'alert-danger':infos.expired.length, 'alert-success':!infos.expired.length}">
+    <div id="today" class="thing-today"><strong>{{getToday()}}</strong></div>
+    <p ng-show="infos.expired.length">Hai {{infos.expired.length}} {{infos.expired.length>1 ? 'pagamenti scaduti' : 'pagamento scaduto'}} per un totale di €<strong>{{calcTotalToPay(infos.expired)}}</strong></p>
+    <p ng-hide="infos.expired.length">Non hai pagamenti scaduti</p>
   </div>
+  <!-- FUTURE -->
   <div class="row">
     <div class="col-sm-2"></div>
     <div class="col-sm-8 things-container">

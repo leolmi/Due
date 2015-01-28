@@ -5,6 +5,10 @@ var Schema = mongoose.Schema;
 var crypto = require('crypto');
 var authTypes = ['github', 'twitter', 'facebook', 'google'];
 
+var UserSettingsSchema = new Schema({
+  prevClosed: Boolean
+});
+
 var UserSchema = new Schema({
   name: String,
   email: { type: String, lowercase: true },
@@ -12,6 +16,7 @@ var UserSchema = new Schema({
     type: String,
     default: 'user'
   },
+  settings: [UserSettingsSchema],
   hashedPassword: String,
   provider: String,
   salt: String,
@@ -58,7 +63,6 @@ UserSchema
 /**
  * Validations
  */
-
 // Validate empty email
 UserSchema
   .path('email')

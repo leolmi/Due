@@ -14,7 +14,7 @@ angular.module('dueAppApp')
       link: '/scheduler'
     }];
 
-    Utilities.useInfos(function(infos){
+    Utilities.useInfos(function(err, infos){
       $scope.infos = infos;
     });
   });

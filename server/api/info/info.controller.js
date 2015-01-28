@@ -3,6 +3,10 @@
 
 var config = require('../../config/environment');
 
+function handleError(res, err) {
+  return res.send(500, err);
+}
+
 exports.index = function(req, res) {
   var infos = {
     version: config.version

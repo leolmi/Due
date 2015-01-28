@@ -35,6 +35,29 @@ exports.create = function (req, res, next) {
 };
 
 /**
+ * Aggiorna l'utente
+ */
+exports.update = function (req, res) {
+  console.log('AGGIORNA L\'utente: '+JSON.stringify(req.body));
+  if (req.body._id) {
+    delete req.body._id;
+  }
+  User.findById(req.params.id, function (err, user) {
+    if (err) return handleError(res, err);
+    if (!user) {
+      return res.send(404);
+    }
+    var updated = _.merge(user, req.body, function (a, b) {
+      return _.isArray(a) ? b : undefined;
+    });
+    updated.save(function (err) {
+      if (err) return handleError(res, err);
+      return res.json(202, user);
+    });
+  });
+};
+
+/**
  * Get a single user
  */
 exports.show = function (req, res, next) {

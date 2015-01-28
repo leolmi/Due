@@ -16,13 +16,19 @@ User.find({}).remove(function() {
     role: 'admin',
     name: 'Admin',
     email: 'admin@admin.com',
-    password: 'admin'
+    password: 'admin',
+    options: {
+      prevClosed: true
+    }
   },{
       _id: '54b3e04cde6279a8211b42fd',
       provider: 'local',
       name: 'Test User',
       email: 'test@test.com',
-      password: 'test'
+      password: 'test',
+      options: {
+        prevClosed: false
+      }
     }, function() {
       console.log('finished populating users');
     }
@@ -74,6 +80,7 @@ Thing.find({}).remove(function() {
     info : 'Build process packs up your templates as a single JavaScript payload, minifies your scripts/css/images, and rewrites asset names for caching.',
     due_date: new Date('2014-9-2'),
     value: 33.70,
+    paid:true,
     state: [{
       type: 'pagamento',
       desc: 'pagato',

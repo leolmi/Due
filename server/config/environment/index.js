@@ -20,7 +20,7 @@ var all = {
   root: path.normalize(__dirname + '/../../..'),
 
   // Server port
-  port: process.env.PORT || 9000,
+  port: process.env.PORT || 7000,
 
   // Should we populate the DB with sample data?
   seedDB: false,
@@ -61,6 +61,8 @@ var all = {
     callbackURL:  (process.env.DOMAIN || '') + '/auth/google/callback'
   }
 };
+
+console.log('process.env.PORT='+process.env.PORT);
 
 // Export the config object based on the NODE_ENV
 // ==============================================
