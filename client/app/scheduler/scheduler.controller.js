@@ -2,8 +2,7 @@
 'use strict';
 
 angular.module('dueAppApp')
-  .controller('SchedulerCtrl', ['$scope','$log','$http','Utilities', function ($scope,$log,$http,Utilities) {
-    var _loading = false;
+  .controller('SchedulerCtrl', ['$scope','$http','uilogger','Utilities', function ($scope,$http,uilogger,Utilities) {
     $scope.mail = {
       from: 'webapps.leo@gmail.com',
       to:'leo.olmi@gmail.com',
@@ -13,19 +12,17 @@ angular.module('dueAppApp')
 
 
     var loadReminds = function() {
-      $log.log('Richiede i reminds (loading='+(_loading?'vero':'falso')+')');
-      if (_loading) return;
-      _loading = true;
+      $rootScope.loading = true;
       $http.get('/api/things', { params: { 'type':'reminder'} } )
         .success(function (reminds){
           $scope.reminds = reminds;
           Utilities.sync($scope.reminds);
-          _loading = false;
-          $log.log('Finita la richiesta, trovati '+$scope.reminds.length+' remind');
         })
         .error(function(err){
-          _loading = false;
-          alert('Errori: '+err);
+          uilogger.toastError("Errore nella richiesta delle scadenze", JSON.stringify(err));
+        })
+        .then(function() {
+          $rootScope.loading = false;
         });
     };
 
@@ -39,7 +36,7 @@ angular.module('dueAppApp')
           alert('Messaggio inviato correttamente');
         })
         .error(function(err){
-          alert('Impossibile inviare il messaggio: '+err);
+          alert('Impossibile inviare il messaggio: '+JSON.stringify(err));
         });
     };
 

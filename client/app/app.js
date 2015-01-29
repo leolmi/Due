@@ -6,7 +6,9 @@ angular.module('dueAppApp', [
   'ngSanitize',
   'ngRoute',
   'btford.socket-io',
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'toastr',
+  'angularSpinner'
 ])
   .config(function ($routeProvider, $locationProvider, $httpProvider) {
     $routeProvider

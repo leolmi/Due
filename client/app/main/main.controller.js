@@ -13,8 +13,4 @@ angular.module('dueAppApp')
       icon: 'glyphicon glyphicon-calendar',
       link: '/scheduler'
     }];
-
-    Utilities.useInfos(function(err, infos){
-      $scope.infos = infos;
-    });
   });

@@ -1,9 +1,5 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
-<style>
-  .today-state {
-    text-align: center;
-  }
-</style>
+
 <header class="due-header">
   <div class="item-editor container" ng-show="editor_opened">
     <due-editor ng-model="selectedThing" eopened="editor_opened" data-ng-show="editor_opened"></due-editor>
@@ -34,3 +30,5 @@
     </div>
   </div>
 </div>
+
+<div ng-show="loading"><span us-spinner></span></div>

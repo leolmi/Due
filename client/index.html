@@ -13,6 +13,7 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(client) app/vendor.css -->
       <!-- bower:css -->
+      <link rel="stylesheet" href="bower_components/angular-toastr/dist/angular-toastr.css" />
       <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css({.tmp,client}) app/app.css -->
@@ -60,6 +61,9 @@
       <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
       <script src="bower_components/angular-route/angular-route.js"></script>
       <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+      <script src="bower_components/angular-toastr/dist/angular-toastr.js"></script>
+      <script src="bower_components/spin.js/spin.js"></script>
+      <script src="bower_components/angular-spinner/angular-spinner.js"></script>
       <script src="bower_components/lodash/dist/lodash.compat.js"></script>
       <script src="bower_components/angular-socket-io/socket.js"></script>
       <!-- endbower -->
@@ -93,6 +97,7 @@
           <script src="components/socket/socket.io.js"></script>
           <script src="components/socket/socket.service.js"></script>
           <script src="components/utilities/action.service.js"></script>
+          <script src="components/utilities/log.service.js"></script>
           <script src="components/utilities/utilities.service.js"></script>
           <!-- endinjector -->
         <!-- endbuild -->

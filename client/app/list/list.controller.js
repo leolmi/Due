@@ -4,8 +4,7 @@
 'use strict';
 
 angular.module('dueAppApp')
-  .controller('ListCtrl', ['$scope','$http','$timeout','$log','Actions','Modal','Utilities', function ($scope, $http, $timeout, $log, Actions, Modal, Utilities) {
-    var _loading = false;
+  .controller('ListCtrl', ['$scope','$rootScope','$http','$timeout','$log','Logger','Actions','Modal','Utilities', function ($scope, $rootScope, $http, $timeout, $log, Logger, Actions, Modal, Utilities) {
     $scope.status = { isopen: false };
     $scope.lists = [];
 
@@ -17,20 +16,17 @@ angular.module('dueAppApp')
       $scope.new_item = {desc: '', selected:true };
     };
     var loadLists = function() {
-      $log.log('Richiede le liste (loading='+(_loading?'vero':'falso')+')');
-      if (_loading) return;
-      _loading = true;
+      $rootScope.loading = true;
       $http.get('/api/things', { params: { 'type':'list'} } )
         .success(function (lists){
           $scope.lists = lists;
           Utilities.sync($scope.lists);
-          _loading = false;
-          $log.log('Finita la richiesta, trovate '+$scope.lists.length+' liste');
           $scope.currentList = getDefaultList();
         })
         .error(function(err){
-          _loading = false;
-          alert('Errori: '+err);
+          Logger.toastError(JSON.stringify(err),"Errore nella richiesta delle liste");
+        }).then(function() {
+          $rootScope.loading = false;
         });
     };
 
@@ -49,7 +45,7 @@ angular.module('dueAppApp')
           $scope.currentList = list;
         })
         .error(function(err) {
-          alert('Errore: '+err);
+          Logger.toastError(JSON.stringify(err),'Errore');
         });
     });
     var modalRemove = Modal.confirm.delete(function(list) {

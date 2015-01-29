@@ -7902,18 +7902,81 @@ due-item > .list-group-item:hover {
   background-color: #ff8c00;
 }
 
-.list-editor {
-  margin-top: 40px;
-  border: #333 3px dotted;
-  padding: 12px;
-  border-radius: 24px;
-}
 
 .list-container {
   padding-top: 51px;
   min-height: 300px;
 }
 
+
+
+
 .list-editor > input {
   border: none;
+}
+.list-editor-container > .alert {
+  margin-top: 50px;
+  text-align: center;
+}
+.list-name {
+  font-size: 2.6em;
+  text-align: center;
+  text-transform: uppercase;
+  color: #ff8c00;
+}
+.list-name:hover {
+  font-weight: bold;
+}
+.open > .dropdown-menu {
+  left: 20vw;
+}
+.list-name > span {
+  top: -10px;
+  font-size: small;
+}
+span.glyphicon-remove-circle:hover {
+  color: red;
+}
+.not-selected {
+  color: #aaa;
+  text-transform: lowercase;
+  font-size: 1.5em;
+  font-weight: normal;
+}
+.list-editor {
+  margin-top: 40px;
+  border: #333 3px dotted;
+  padding: 12px 40px 12px 12px;
+  border-radius: 24px;
+  position: relative;
+}
+.list-editor > input {
+  border: 0;
+  -moz-appearance: none;
+  -ms-progress-appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  margin-right: 20px;
+}
+.list-editor > input:focus {
+  outline: none;
+}
+.list-editor > span.glyphicon-plus {
+  font-size: 2em;
+  position: absolute;
+  right: 8px;
+  top: 8px;
+}
+.list-editor > span.glyphicon-plus:hover {
+  color: #008000;
+}
+.list-items > list-item > .list-item {
+  border-bottom: #ddd 1px solid;
+}
+.list-items > list-item:last-child > .list-item {
+  border-bottom: 0;
+}
+
+.today-state {
+  text-align: center;
 }

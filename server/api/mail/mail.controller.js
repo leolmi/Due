@@ -22,6 +22,7 @@ var parse = function() {
 var getTransporter = function() {
   if (!_transporter) {
     var infos = parse(config.mail);
+    console.log('config: '+JSON.stringify(infos));
     _transporter = nodemailer.createTransport({
       service: infos.service,
       auth: {
@@ -29,6 +30,7 @@ var getTransporter = function() {
         pass: infos.password
       }
     });
+    console.log('transporter: '+JSON.stringify(_transporter));
   }
   return _transporter;
 };
@@ -37,19 +39,22 @@ var parseOptions = function(data, next){
   //TODO: interpreta la richiesta inserendo i dati necessari al corretto invio
 
   next({
-    from: data.from, // sender address
+    from: 'Ciccio <'+data.from+'>', // sender address
     to: data.to, // list of receivers
     subject: data.subject, // Subject line
-    text: data.text, // plaintext body
-    html: data.html // html body
+    text: data.text // plaintext body
+    //html: data.html // html body
   })
 };
 
 exports.send = function(req, res) {
   console.log("mail da inviare: "+JSON.stringify(req.body));
-  parseOptions(req.body,  function(mail){
+  var options=req.body;
+  parseOptions(options, function(mail){
     var transporter = getTransporter();
-    transporter.sendMail(options, function(err, info){
+    console.log('transporter ricevto: '+JSON.stringify(transporter));
+    transporter.sendMail(mail, function(err, info){
+      if(err) console.log('sendMail error: '+JSON.stringify(err));
       if(err) return res.send(500, err);
       res.json(200, info);
     });

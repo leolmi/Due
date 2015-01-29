@@ -26,7 +26,7 @@ angular.module('dueAppApp')
       return result;
     }
   })
-  .directive('dueItem', ['$http','Utilities','Modal', function ($http, Utilities, Modal) {
+  .directive('dueItem', ['$rootScope','$http','Utilities','Modal', function ($rootScope, $http, Utilities, Modal) {
       return {
           restrict: 'E',
           templateUrl: 'components/due-item/due-item.html',
@@ -55,10 +55,12 @@ angular.module('dueAppApp')
               scope.thing.state.push(state);
               refreshItemClass();
               Utilities.refreshThing(scope.thing);
+              $rootScope.$broadcast('due-changed');
             });
 
             var modalDelete = Modal.confirm.delete(function(thing) {
               scope.$parent.deleteThing(thing);
+              $rootScope.$broadcast('due-changed');
             });
 
 
