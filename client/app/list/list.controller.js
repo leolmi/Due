@@ -16,6 +16,7 @@ angular.module('dueAppApp')
       $scope.new_item = {desc: '', selected:true };
     };
     var loadLists = function() {
+      if ($rootScope.loading) return;
       $rootScope.loading = true;
       $http.get('/api/things', { params: { 'type':'list'} } )
         .success(function (lists){
@@ -24,7 +25,7 @@ angular.module('dueAppApp')
           $scope.currentList = getDefaultList();
         })
         .error(function(err){
-          Logger.toastError(JSON.stringify(err),"Errore nella richiesta delle liste");
+          Logger.toastError("Errore nella richiesta delle liste",JSON.stringify(err));
         }).then(function() {
           $rootScope.loading = false;
         });
@@ -45,7 +46,7 @@ angular.module('dueAppApp')
           $scope.currentList = list;
         })
         .error(function(err) {
-          Logger.toastError(JSON.stringify(err),'Errore');
+          Logger.toastError('Errore', JSON.stringify(err));
         });
     });
     var modalRemove = Modal.confirm.delete(function(list) {

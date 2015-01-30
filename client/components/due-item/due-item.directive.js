@@ -26,7 +26,7 @@ angular.module('dueAppApp')
       return result;
     }
   })
-  .directive('dueItem', ['$rootScope','$http','Utilities','Modal', function ($rootScope, $http, Utilities, Modal) {
+  .directive('dueItem', ['$rootScope','$http','Logger','Utilities','Modal', function ($rootScope, $http, Logger, Utilities, Modal) {
       return {
           restrict: 'E',
           templateUrl: 'components/due-item/due-item.html',
@@ -56,6 +56,7 @@ angular.module('dueAppApp')
               refreshItemClass();
               Utilities.refreshThing(scope.thing);
               $rootScope.$broadcast('due-changed');
+              Logger.toastOk('Pagamento','Effettuato pagamento per:'+scope.thing.name)
             });
 
             var modalDelete = Modal.confirm.delete(function(thing) {

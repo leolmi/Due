@@ -3,10 +3,10 @@
 
 @icon-font-path: '/bower_components/bootstrap/fonts/';
 @fa-font-path: '/bower_components/font-awesome/fonts';
-@due-header-color: dimgray;
-@due-header-hovercolor: darkorange;
-@due-header-backcolor: #333; // #f8f8f8;
-@due-header-bordercolor: #e7e7e7;
+@thing-editor-header-color: dimgray;
+@thing-editor-header-hovercolor: darkorange;
+@thing-editor-header-backcolor: #333; // #f8f8f8;
+@thing-editor-header-bordercolor: #e7e7e7;
 
 /**
  * App-wide Styles
@@ -20,21 +20,21 @@
 }
 
 .navbar-default {
-  background-color: @due-header-backcolor;
-  border-color: @due-header-bordercolor;
+  background-color: @thing-editor-header-backcolor;
+  border-color: @thing-editor-header-bordercolor;
 }
 .navbar-brand-pig {
   padding-top: 10px;
 }
 
 .navbar-default .navbar-text {
-  color: @due-header-color;
+  color: @thing-editor-header-color;
 }
 .navbar-default .navbar-nav > li > a {
-  color: @due-header-color;
+  color: @thing-editor-header-color;
 }
 .navbar.navbar-nav > li > a:hover {
-  color: @due-header-hovercolor;
+  color: @thing-editor-header-hovercolor;
 }
 .navbar-form input {
   margin-right: 10px;
@@ -77,13 +77,18 @@
 .alert-today {
   margin-top: 16px;
 }
+.close-editor {
+  float: right;
+  margin: 10px 0;
+  font-size: 30px;
+}
 // injector
 @import 'account/login/login.less';
 @import 'admin/admin.less';
 @import 'due/due.less';
 @import 'list/list.less';
 @import 'main/main.less';
-@import 'due-editor/due-editor.less';
+@import 'tickets/tickets.less';
 @import 'due-item/due-item.less';
 @import 'modal/modal.less';
 @import 'navbar/navbar.less';

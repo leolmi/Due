@@ -1,0 +1,16 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<header class="thing-editor-header">
+  <div class="item-editor container" ng-show="editor_opened">
+    <ticket-editor ng-model="currentTicket" eopened="editor_opened" data-ng-show="editor_opened"></ticket-editor>
+  </div>
+</header>
+
+<div class="container things-container" ng-style="content_style">
+  <div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8">
+      <ticket-item data-ng-repeat="ticket in tickets | orderBy:'name'" data-ng-click="selectTicket(ticket)" data-ng-model="ticket" active="curentTicket._id==ticket._id"></ticket-item>
+    </div>
+  </div>
+</div>

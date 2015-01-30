@@ -7797,7 +7797,7 @@ due-item > .list-group-item:hover {
   float: right;
   cursor: pointer;
 }
-.due-header {
+.thing-editor-header {
   margin-top: 50px;
   color: #696969;
   background-color: #222;
@@ -7806,7 +7806,7 @@ due-item > .list-group-item:hover {
   z-index: 10;
   display: none;
 }
-.due-header:hover {
+.thing-editor-header:hover {
   color: #ff8c00;
 }
 .thing-today {
@@ -7980,3 +7980,4 @@ span.glyphicon-remove-circle:hover {
 .today-state {
   text-align: center;
 }
+

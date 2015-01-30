@@ -39,6 +39,7 @@ angular.module('dueAppApp')
     };
 
     var loadThings = function() {
+      if ($rootScope.loading) return;
       $rootScope.loading = true;
       var id = _getup ? _items.first : _items.last;
       var appendmode = $scope.things.length;
@@ -64,7 +65,7 @@ angular.module('dueAppApp')
           }
         })
         .error(function(err) {
-          Logger.toastError(JSON.stringify(err),"Errore nella richiesta dei pagamenti");
+          Logger.toastError("Errore nella richiesta dei pagamenti",JSON.stringify(err));
         })
         .then(function() {
           $rootScope.loading = false;
@@ -73,7 +74,7 @@ angular.module('dueAppApp')
     };
 
     var checkDueHeaderStyle = function() {
-      $('.due-header').css('display','block');
+      $('.thing-editor-header').css('display','block');
     };
 
     var refreshContentStyle = function() {
@@ -86,7 +87,6 @@ angular.module('dueAppApp')
 
 
 
-
     $scope.selectThing = function(thing) {
       if (!$scope.editor_opened) return;
       $scope.selectedThing = thing;
@@ -94,7 +94,7 @@ angular.module('dueAppApp')
     $scope.deleteThing = function(thing) {
       $http.delete('/api/things/' + thing._id)
         .error(function(err){
-          Logger.toastError(JSON.stringify(err),"Impossibile eliminare l'oggetto");
+          Logger.toastError("Impossibile eliminare l'oggetto",JSON.stringify(err));
         });
     };
 

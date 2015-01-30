@@ -20,9 +20,9 @@ angular.module('dueAppApp', [
         templateUrl: 'app/list/list.html',
         controller: 'ListCtrl'
       })
-      .when('/scheduler', {
-        templateUrl: 'app/scheduler/scheduler.html',
-        controller: 'SchedulerCtrl'
+      .when('/tickets', {
+        templateUrl: 'app/tickets/tickets.html',
+        controller: 'TicketsCtrl'
       })
       .otherwise({
         redirectTo: '/'

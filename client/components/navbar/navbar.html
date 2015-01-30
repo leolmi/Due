@@ -8,7 +8,7 @@
         <span class="icon-bar"></span>
       </button>
       <a href="/" class="navbar-brand navbar-brand-pig"><img src="assets/images/pig-32.png"></a>
-      <a href="#" class="navbar-brand editor-toggle" ng-show="(!editor_opened && isActive('/due')) || isActive('/list')">
+      <a href="#" class="navbar-brand editor-toggle" ng-show="(!editor_opened && isActive('/due')) || (!editor_opened && isActive('/tickets')) || isActive('/list')">
         <span class="glyphicon glyphicon-pencil" ng-click="toggleEditor()"
               ng-class="{'glyphicon-pencil':!editor_opened, 'glyphicon-eye-open':editor_opened}"></span>
       </a>

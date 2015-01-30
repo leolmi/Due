@@ -155,7 +155,7 @@ exports.show = function(req, res) {
 // Creates a new thing in the DB.
 exports.create = function(req, res) {
   var uid = req.user._id;
-  //console.log('[create] - ID utente:'+uid);
+  console.log('[create] - ID utente:'+uid+'   type:'+req.body.type);
   req.body.owner = uid;
   Thing.create(req.body, function(err, thing) {
     if(err) { return handleError(res, err); }
@@ -167,6 +167,7 @@ exports.create = function(req, res) {
 exports.update = function(req, res) {
   //console.log('req.params:'+JSON.stringify(req.params));
   //console.log('req.body:'+JSON.stringify(req.body));
+  console.log('[update] - ID utente:'+uid+'   type:'+req.body.type);
   if(req.body._id) { delete req.body._id; }
   if(req.body.__v) { delete req.body.__v; }
   Thing.findById(req.params.id, function (err, thing) {

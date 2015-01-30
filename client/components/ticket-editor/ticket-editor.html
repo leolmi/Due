@@ -1,0 +1,22 @@
+<!--Nome e note-->
+<div class="row">
+  <div class="col-sm-2"></div>
+  <div class="col-sm-8">
+    <div class="form-group form-group-sm">
+      <input type="text" id="first-control" class="form-control" placeholder="nome" data-ng-model="ticket.name">
+    </div>
+    <div class="form-group form-group-sm">
+      <textarea class="form-control textarea-vertical" rows="4" data-ng-model="ticket.info" placeholder="descrizione"></textarea>
+    </div>
+  </div>
+</div>
+<!--Pulsanti-->
+<div class="row">
+  <div class="col-sm-2"></div>
+  <div class="col-sm-8">
+    <button type="button" class="btn btn-primary" ng-hide="ticket._id"  ng-click="addThing()">Aggiungi</button>
+    <button type="button" class="btn btn-success" ng-show="ticket._id"  ng-click="addThing()">Modifica</button>
+    <button type="button" class="btn btn-warning" ng-show="ticket._id" ng-click="$parent.createNewThing(true)">Nuovo</button>
+    <span class="glyphicon glyphicon-chevron-up aslink close-editor" data-ng-click="toggle()"></span>
+  </div>
+</div>
