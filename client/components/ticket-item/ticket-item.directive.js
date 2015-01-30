@@ -10,6 +10,8 @@ angular.module('dueAppApp')
       templateUrl: 'components/ticket-item/ticket-item.html',
       scope: {ticket: '=ngModel', active:'='},
       link: function (scope) {
+        scope.details = false;
+
         var modalDelete = Modal.confirm.delete(function(ticket) {
           scope.$parent.deleteTicket(ticket);
         });
@@ -20,6 +22,11 @@ angular.module('dueAppApp')
 
         scope.getStyle = function() {
           return (scope.active && scope.$parent.editor_opened) ? { 'background-color' : 'cadetblue' } : undefined;
+        };
+
+        scope.toggle = function() {
+          if (scope.$parent.editor_opened) return;
+          scope.details = !scope.details;
         };
       }
     }

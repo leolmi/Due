@@ -4,6 +4,7 @@ var User = require('./user.model');
 var passport = require('passport');
 var config = require('../../config/environment');
 var jwt = require('jsonwebtoken');
+var _ = require('lodash');
 
 var validationError = function(res, err) {
   return res.json(422, err);
@@ -27,6 +28,9 @@ exports.create = function (req, res, next) {
   var newUser = new User(req.body);
   newUser.provider = 'local';
   newUser.role = 'user';
+  console.log('L\'utente: '+JSON.stringify(req.body));
+
+
   newUser.save(function(err, user) {
     if (err) return validationError(res, err);
     var token = jwt.sign({_id: user._id }, config.secrets.session, { expiresInMinutes: 60*5 });
@@ -39,10 +43,7 @@ exports.create = function (req, res, next) {
  */
 exports.update = function (req, res) {
   console.log('AGGIORNA L\'utente: '+JSON.stringify(req.body));
-  if (req.body._id) {
-    delete req.body._id;
-  }
-  User.findById(req.params.id, function (err, user) {
+  User.findById(req.body._id, function (err, user) {
     if (err) return handleError(res, err);
     if (!user) {
       return res.send(404);

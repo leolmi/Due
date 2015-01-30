@@ -10,7 +10,7 @@
   <div class="row">
     <div class="col-sm-2"></div>
     <div class="col-sm-8">
-      <ticket-item data-ng-repeat="ticket in tickets | orderBy:'name'" data-ng-click="selectTicket(ticket)" data-ng-model="ticket" active="curentTicket._id==ticket._id"></ticket-item>
+      <ticket-item data-ng-repeat="ticket in tickets | orderBy:'name'" data-ng-click="setTicket(ticket)" data-ng-model="ticket" active="curentTicket._id==ticket._id"></ticket-item>
     </div>
   </div>
 </div>

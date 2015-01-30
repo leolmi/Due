@@ -1,12 +1,20 @@
 'use strict';
 
 angular.module('dueAppApp')
-  .controller('SettingsCtrl', function ($scope, User, Auth) {
+  .controller('SettingsCtrl', function ($scope, $http, User, Auth, Logger) {
     $scope.errors = {};
 
     $scope.user = Auth.getCurrentUser();
 
-    $scope.updateUser = User.update();
+    $scope.updateUser = function() {
+      $http.put('/api/users', $scope.user)
+        .success(function() {
+          Logger.toastOk("Utente aggiornato correttamente.");
+        })
+        .error(function(err) {
+          Logger.toastError("Impossibile aggiornare l'utente!", JSON.stringify(err));
+        });
+    }
 
     $scope.changePassword = function(form) {
       $scope.submitted = true;

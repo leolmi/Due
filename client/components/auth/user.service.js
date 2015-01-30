@@ -6,9 +6,6 @@ angular.module('dueAppApp')
       id: '@_id'
     },
     {
-      update: {
-        method: 'PUT'
-      },
       changePassword: {
         method: 'PUT',
         params: {
