@@ -93,6 +93,9 @@ angular.module('dueAppApp')
     };
     $scope.deleteThing = function(thing) {
       $http.delete('/api/things/' + thing._id)
+        .success(function() {
+          $rootScope.$broadcast('due-changed');
+        })
         .error(function(err){
           Logger.toastError("Impossibile eliminare l'oggetto",JSON.stringify(err));
         });

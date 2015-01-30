@@ -54,16 +54,22 @@ angular.module('dueAppApp')
             var modalPay = Modal.confirm.pay(getInfoForPay(), function(state) {
               scope.thing.state.push(state);
               refreshItemClass();
-              Utilities.refreshThing(scope.thing);
-              $rootScope.$broadcast('due-changed');
-              Logger.toastOk('Pagamento','Effettuato pagamento per:'+scope.thing.name)
+              Utilities.refreshThing(scope.thing, function() {
+                $rootScope.$broadcast('due-changed');
+                Logger.toastOk('Pagamento','Effettuato pagamento per:'+scope.thing.name)
+              });
             });
 
             var modalDelete = Modal.confirm.delete(function(thing) {
               scope.$parent.deleteThing(thing);
-              $rootScope.$broadcast('due-changed');
             });
 
+            scope.deleteState = function(state){
+              _.remove(scope.thing.state, {_id: state._id});
+              Utilities.refreshThing(scope.thing, function() {
+                $rootScope.$broadcast('due-changed');
+              });
+            };
 
             scope.deleteThing = function() {
               modalDelete(scope.thing.name, scope.thing);
@@ -113,11 +119,7 @@ angular.module('dueAppApp')
               scope.details = !scope.details;
             };
 
-            scope.deleteState = function(state){
-              _.remove(scope.thing.state, {_id: state._id});
-              //alert('passa da [deleteState]');
-              Utilities.refreshThing(scope.thing);
-            };
+
 
             refreshItemClass();
           }

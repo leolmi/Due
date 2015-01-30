@@ -14,9 +14,13 @@
   .thing-item-title {
     padding: 0 0 8px 8px;
   }
+  .thing-item-content > pre {
+    table-layout: fixed;
+    width: 100%;
+  }
 </style>
 <div class="thing-item" data-ng-class="class" ng-style="getStyle()">
-  <div class="due-item-content clearfix" ng-click="toggle()">
+  <div class="thing-item-content clearfix" ng-click="toggle()">
     <div class="thing-item-title"><strong>{{ticket.name}}</strong></div>
     <pre ng-show="details">{{ticket.info}}</pre>
     <button type="button" class="close" data-ng-click="deleteTicket()">&times;</button>
