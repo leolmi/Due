@@ -45,7 +45,7 @@ var getDueThings = function(params, next) {
   //console.log('getThings - params.prev='+params.prev);
   var where = params.prev ? "this.due_date.getTime() < "+now : "this.due_date.getTime() >= "+now;
   where += ' && !this.type';  //<-- identifica i pagamenti
-  if (params.prev && !params.prevClosed) where += ' && !this.paid';
+  //if (params.prev && !params.prevClosed) where += ' && !this.paid';
   //console.log('WHERE filter='+where);
   var filter = {owner:params.user_id, $where: where};
   var sort_type = params.prev ? 'desc' : 'asc';
